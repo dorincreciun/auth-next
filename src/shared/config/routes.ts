@@ -6,9 +6,16 @@ export const AUTH_ROUTES = {
     RESET_PASSWORD: "/reset-password",
 } as const
 
+export const SETTINGS_ROUTES = {
+    PROFILE: "/settings",
+    SECURITY: "/settings/security",
+    DEVICES: "/settings/devices",
+} as const
+
 export const APP_ROUTES = {
     ROOT: "/",
     ...AUTH_ROUTES,
+    ...SETTINGS_ROUTES,
 } as const
 
 export type AppRoutes = (typeof APP_ROUTES)[keyof typeof APP_ROUTES]
