@@ -2,10 +2,33 @@
     * {
         @apply border-border outline-ring/50;
     }
+
+    html {
+        font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    }
+
     body {
         @apply bg-background text-foreground;
+        font-family: inherit;
+        background-image:
+            radial-gradient(ellipse 90% 70% at 50% -20%, rgba(234, 40, 69, 0.28), transparent 65%),
+            radial-gradient(ellipse 55% 45% at 100% 0%, rgba(211, 30, 90, 0.18), transparent 55%),
+            radial-gradient(ellipse 45% 35% at 0% 100%, rgba(234, 40, 69, 0.12), transparent 50%);
+        background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
-    html {
-        @apply font-sans;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-semibold tracking-tight text-foreground;
+    }
+
+    a {
+        @apply transition-colors;
     }
 }

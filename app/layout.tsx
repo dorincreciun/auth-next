@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 
 import "@app/styles/index.css"
 
-import { dmSans } from "@app/fonts"
+import { inter } from "@app/fonts"
 import { RootLayoutShell } from "@app/layouts"
 
 export const metadata: Metadata = {
@@ -21,8 +21,8 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
-        <html lang="en">
-            <body className={`antialiased ${dmSans.variable}`}>
+        <html lang="ro" className={`dark ${inter.variable}`}>
+            <body className={`${inter.className} antialiased`}>
                 <RootLayoutShell>{children}</RootLayoutShell>
             </body>
         </html>

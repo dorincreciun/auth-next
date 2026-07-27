@@ -9,10 +9,10 @@ interface RootLayoutProps {
 
 export function RootLayoutShell({ children }: RootLayoutProps) {
     return (
-        <>
+        <div className="flex min-h-svh flex-col">
             <Header />
             {children}
             <Footer />
-        </>
+        </div>
     )
 }
