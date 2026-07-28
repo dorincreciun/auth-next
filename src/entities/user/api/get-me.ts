@@ -1,5 +1,6 @@
-import type { User } from "@entities/user"
 import { createServerClient } from "@shared/lib/openapi"
+
+import type { User } from "../model/types"
 
 export const getMe = async (): Promise<User | null> => {
     const api = await createServerClient()

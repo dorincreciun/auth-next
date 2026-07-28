@@ -5,7 +5,7 @@ import { APP_ROUTES, type AppRoutes } from "@shared/config"
 
 export const settingsNavLinkVariants = cva(
     [
-        "flex min-h-11 w-full items-center gap-2.5 rounded-xl px-3 py-2.5",
+        "flex min-h-11 w-full items-center gap-2.5 rounded-lg px-3 py-2.5",
         "text-sm font-medium text-foreground no-underline",
         "border border-transparent",
         "transition-all outline-none",

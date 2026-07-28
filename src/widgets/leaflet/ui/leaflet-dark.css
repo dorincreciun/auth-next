@@ -1,0 +1,45 @@
+.leaflet-container {
+    background: var(--background);
+}
+
+.leaflet-bar,
+.leaflet-bar a,
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+    background: var(--popover);
+    border-color: var(--border);
+    color: var(--foreground);
+}
+
+.leaflet-bar a:hover {
+    background: var(--secondary);
+}
+
+.leaflet-bar a.leaflet-disabled {
+    background: var(--muted);
+    color: var(--muted-foreground);
+}
+
+.leaflet-control-attribution {
+    background: color-mix(in srgb, var(--popover) 75%, transparent);
+    color: var(--muted-foreground);
+}
+
+.leaflet-control-attribution a {
+    color: var(--foreground);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: 0 12px 48px rgb(0 0 0 / 0.45);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    color: var(--muted-foreground);
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+    color: var(--foreground);
+}
