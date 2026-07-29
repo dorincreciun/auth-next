@@ -1,18 +1,16 @@
-import {
-  type RegisterBody,
-  type RegisterError,
-  type RegisterSuccess,
-} from "@features/auth/register"
 import { client } from "@shared/lib/openapi"
+import { type ApiResponse } from "@shared/types"
 
-type Response = Promise<RegisterSuccess | RegisterError>
+import { type RegisterPayload, type RegisterResponse } from "../model/types"
 
-export const register = async (payload: RegisterBody): Response => {
+export const registerUser = async (
+  payload: RegisterPayload,
+): Promise<ApiResponse<RegisterResponse>> => {
   const { data, error } = await client.POST("/auth/register", {
     body: payload,
   })
 
-  if (error || !data) {
+  if (error) {
     return error
   }
 

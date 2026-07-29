@@ -12,6 +12,7 @@
         "generate:api": "openapi-typescript http://localhost:5000/swagger/json -o ./src/shared/lib/openapi/v1.d.ts"
     },
     "dependencies": {
+        "@hookform/resolvers": "^5.5.7",
         "@t3-oss/env-nextjs": "^0.13.11",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -24,6 +25,7 @@
         "radix-ui": "^1.6.0",
         "react": "19.2.3",
         "react-dom": "19.2.3",
+        "react-hook-form": "^7.83.0",
         "react-leaflet": "^5.0.0",
         "shadcn": "^4.11.0",
         "tailwind-merge": "^3.6.0",

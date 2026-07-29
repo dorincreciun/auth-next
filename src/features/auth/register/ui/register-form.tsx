@@ -1,51 +1,75 @@
+"use client"
+
 import Link from "next/link"
 
 import { APP_ROUTES } from "@shared/config"
 import { Button } from "@shared/ui/button"
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@shared/ui/field"
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
+import { useRegisterForm } from "../model/use-register-form"
+
 export const RegisterForm = () => {
+  const { register, handleFormSubmit, formState } = useRegisterForm()
+  const { errors, isSubmitting } = formState
+
   return (
-    <form>
+    <form onSubmit={handleFormSubmit} noValidate>
       <FieldGroup>
-        <Field>
+        <Field data-invalid={!!errors.email}>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input
+            {...register("email")}
             id="email"
-            name="email"
             type="email"
             autoComplete="email"
             placeholder="nume@exemplu.com"
-            required
+            aria-invalid={!!errors.email}
           />
-          <FieldDescription>Vei primi un cod de verificare pe această adresă.</FieldDescription>
+          {errors.email ? (
+            <FieldError errors={[errors.email]} />
+          ) : (
+            <FieldDescription>Vei primi un cod de verificare pe această adresă.</FieldDescription>
+          )}
         </Field>
-        <Field>
+        <Field data-invalid={!!errors.password}>
           <FieldLabel htmlFor="password">Parolă</FieldLabel>
           <Input
+            {...register("password")}
             id="password"
-            name="password"
             type="password"
             autoComplete="new-password"
-            required
+            aria-invalid={!!errors.password}
           />
-          <FieldDescription>Minim 8 caractere, cu litere și cifre.</FieldDescription>
+          {errors.password ? (
+            <FieldError errors={[errors.password]} />
+          ) : (
+            <FieldDescription>Minim 8 caractere, cu litere și cifre.</FieldDescription>
+          )}
         </Field>
-        <Field>
+        <Field data-invalid={!!errors.confirmPassword}>
           <FieldLabel htmlFor="confirm-password">Confirmă parola</FieldLabel>
           <Input
+            {...register("confirmPassword")}
             id="confirm-password"
-            name="confirmPassword"
             type="password"
             autoComplete="new-password"
-            required
+            aria-invalid={!!errors.confirmPassword}
           />
-          <FieldDescription>Reintrodu parola pentru confirmare.</FieldDescription>
+          {errors.confirmPassword ? (
+            <FieldError errors={[errors.confirmPassword]} />
+          ) : (
+            <FieldDescription>Reintrodu parola pentru confirmare.</FieldDescription>
+          )}
         </Field>
+        {!!errors.root && (
+          <Field data-invalid>
+            <FieldError errors={[errors.root]} />
+          </Field>
+        )}
         <Field>
-          <Button type="submit" size="lg" className="w-full">
-            Creează cont
+          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Se creează contul…" : "Creează cont"}
           </Button>
         </Field>
         <Field>

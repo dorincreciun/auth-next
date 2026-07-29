@@ -13,6 +13,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Înregistrare utilizator nou */
         post: operations["AuthController_register"];
         delete?: never;
         options?: never;
@@ -29,6 +30,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Autentificare cu email și parolă */
         post: operations["AuthController_login"];
         delete?: never;
         options?: never;
@@ -45,6 +47,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Deconectare (distruge sesiunea) */
         post: operations["AuthController_logout"];
         delete?: never;
         options?: never;
@@ -59,6 +62,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Profilul utilizatorului autentificat */
         get: operations["AuthController_getMe"];
         put?: never;
         post?: never;
@@ -77,6 +81,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Trimite codul de verificare a emailului */
         post: operations["AuthController_emailVerifySend"];
         delete?: never;
         options?: never;
@@ -93,6 +98,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Confirmă emailul cu codul primit */
         post: operations["AuthController_confirmEmail"];
         delete?: never;
         options?: never;
@@ -109,6 +115,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Solicită resetarea parolei */
         post: operations["AuthController_forgotPassword"];
         delete?: never;
         options?: never;
@@ -125,6 +132,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
+        /** Resetează parola cu codul primit pe email */
         post: operations["AuthController_resetPassword"];
         delete?: never;
         options?: never;
@@ -136,21 +144,9 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        CreateUserRequestDto: {
+        UserDto: {
             /**
-             * @description Adresa de unică de email a utilizatorului
-             * @example test@gmail.com
-             */
-            email: string;
-            /**
-             * @description Parola contului (minim 8 caractere, conține litere mari, mici, cifre și caractere speciale)
-             * @example Password123!
-             */
-            password: string;
-        };
-        UserResponseDto: {
-            /**
-             * @description Adresa de unică de email a utilizatorului
+             * @description Adresa de email a utilizatorului
              * @example test@gmail.com
              */
             email: string;
@@ -187,59 +183,70 @@ export interface components {
              */
             lastName: string | null;
         };
-        AuthUserResponseDto: {
-            user: components["schemas"]["UserResponseDto"];
+        AuthUserDataDto: {
+            /** @description Profilul utilizatorului autentificat */
+            user: components["schemas"]["UserDto"];
         };
-        AuthUserApiResponseDto: {
+        RegisterPayloadDto: {
             /**
-             * @description Indică un răspuns de succes
-             * @example true
+             * Format: email
+             * @description Adresa de email a noului cont
+             * @example test@gmail.com
              */
-            success: boolean;
+            email: string;
             /**
-             * @description Codul HTTP al răspunsului
-             * @example 200
+             * @description Parola contului (minim 8 caractere, litere mari/mici, cifră și caracter special)
+             * @example Password123!
              */
-            statusCode: number;
-            /**
-             * @description Momentul generării răspunsului (ISO)
-             * @example 2026-07-27T08:00:00.000Z
-             */
-            timestamp: string;
-            /**
-             * @description Path-ul request-ului
-             * @example /auth/login
-             */
-            path: string;
-            data: components["schemas"]["AuthUserResponseDto"];
+            password: string;
         };
         ErrorResponseDto: {
-            /** @example false */
-            success: boolean;
-            /** @example 400 */
+            /**
+             * @description Indică un răspuns de eroare
+             * @example false
+             * @enum {boolean}
+             */
+            success: false;
+            /**
+             * @description Codul HTTP al erorii
+             * @example 422
+             */
             statusCode: number;
             /**
-             * @description Momentul generării răspunsului (ISO)
-             * @example 2026-07-27T08:00:00.000Z
+             * @description Mesaj human-readable, gata de afișat global
+             * @example Validation failed
              */
-            timestamp: string;
-            /** @example /auth/login */
-            path: string;
+            message: string;
             /**
-             * @description Lista mesajelor de eroare
-             * @example [
-             *       "Email sau parolă incorectă"
-             *     ]
+             * @description Erori pe câmp. null când eroarea nu e legată de câmpuri.
+             * @example {
+             *       "email": [
+             *         "Adresa de email nu este validă"
+             *       ],
+             *       "password": [
+             *         "Parola trebuie să aibă minim 8 caractere"
+             *       ]
+             *     }
              */
-            message: string[];
+            details: {
+                [key: string]: string[];
+            } | null;
             /**
-             * @description Eticheta erorii (sau cod Prisma, etc.)
-             * @example Unauthorized
+             * @description Meta informații utile pentru debugging
+             * @example {
+             *       "path": "/auth/login",
+             *       "timestamp": "2026-07-27T08:00:00.000Z"
+             *     }
              */
-            error: string;
+            meta: {
+                path?: string;
+                /** Format: date-time */
+                timestamp?: string;
+            };
         };
-        LoginRequestDto: {
+        LoginPayloadDto: {
             /**
+             * Format: email
              * @description Adresa de email a contului
              * @example test@gmail.com
              */
@@ -250,41 +257,12 @@ export interface components {
              */
             password: string;
         };
-        MessageResponseDto: {
-            /**
-             * @description Mesaj descriptiv pentru client
-             * @example Operația a fost finalizată cu succes.
-             */
+        MessageDataDto: {
+            /** @description Mesaj descriptiv pentru client */
             message: string;
         };
-        MessageApiResponseDto: {
-            /**
-             * @description Indică un răspuns de succes
-             * @example true
-             */
-            success: boolean;
-            /**
-             * @description Codul HTTP al răspunsului
-             * @example 200
-             */
-            statusCode: number;
-            /**
-             * @description Momentul generării răspunsului (ISO)
-             * @example 2026-07-27T08:00:00.000Z
-             */
-            timestamp: string;
-            /**
-             * @description Path-ul request-ului
-             * @example /auth/login
-             */
-            path: string;
-            data: components["schemas"]["MessageResponseDto"];
-        };
-        TokenSentResponseDto: {
-            /**
-             * @description Mesaj descriptiv pentru client
-             * @example Un nou cod de verificare a fost trimis pe adresa ta de email. Verifică și folderul Spam.
-             */
+        TokenSentDataDto: {
+            /** @description Mesaj descriptiv pentru client */
             message: string;
             /**
              * @description Data de expirare a tokenului (ISO), utilă pentru countdown în frontend
@@ -292,45 +270,24 @@ export interface components {
              */
             tokenExpiresAt: string;
         };
-        TokenSentApiResponseDto: {
-            /**
-             * @description Indică un răspuns de succes
-             * @example true
-             */
-            success: boolean;
-            /**
-             * @description Codul HTTP al răspunsului
-             * @example 200
-             */
-            statusCode: number;
-            /**
-             * @description Momentul generării răspunsului (ISO)
-             * @example 2026-07-27T08:00:00.000Z
-             */
-            timestamp: string;
-            /**
-             * @description Path-ul request-ului
-             * @example /auth/login
-             */
-            path: string;
-            data: components["schemas"]["TokenSentResponseDto"];
-        };
-        ConfirmEmailRequestDto: {
+        ConfirmEmailPayloadDto: {
             /**
              * @description Codul OTP de 6 cifre primit pe email
              * @example 123456
              */
             token: string;
         };
-        ForgotPasswordRequestDto: {
+        ForgotPasswordPayloadDto: {
             /**
+             * Format: email
              * @description Adresa de email pentru care se solicită resetarea parolei
              * @example test@gmail.com
              */
             email: string;
         };
-        ResetPasswordRequestDto: {
+        ResetPasswordPayloadDto: {
             /**
+             * Format: email
              * @description Adresa de email a contului
              * @example test@gmail.com
              */
@@ -364,7 +321,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CreateUserRequestDto"];
+                "application/json": components["schemas"]["RegisterPayloadDto"];
             };
         };
         responses: {
@@ -374,11 +331,34 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuthUserApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 201
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["AuthUserDataDto"];
+                    };
                 };
             };
-            /** @description Date invalide */
-            400: {
+            /** @description Conflict la înregistrare */
+            409: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -386,8 +366,8 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description Conflict la înregistrare */
-            409: {
+            /** @description Date invalide */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -415,7 +395,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["LoginRequestDto"];
+                "application/json": components["schemas"]["LoginPayloadDto"];
             };
         };
         responses: {
@@ -425,11 +405,34 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuthUserApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["AuthUserDataDto"];
+                    };
                 };
             };
-            /** @description Date invalide */
-            400: {
+            /** @description Credențiale invalide */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -437,8 +440,8 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description Credențiale invalide */
-            401: {
+            /** @description Date invalide */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -472,7 +475,30 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MessageApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["MessageDataDto"];
+                    };
                 };
             };
             /** @description Neautentificat */
@@ -495,13 +521,36 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Profilul utilizatorului autentificat */
+            /** @description Profilul utilizatorului din sesiune */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuthUserApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["AuthUserDataDto"];
+                    };
                 };
             };
             /** @description Neautentificat */
@@ -530,7 +579,30 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TokenSentApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["TokenSentDataDto"];
+                    };
                 };
             };
             /** @description Email deja confirmat / token încă valid */
@@ -571,7 +643,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConfirmEmailRequestDto"];
+                "application/json": components["schemas"]["ConfirmEmailPayloadDto"];
             };
         };
         responses: {
@@ -581,7 +653,30 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MessageApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["MessageDataDto"];
+                    };
                 };
             };
             /** @description Cod invalid / expirat */
@@ -595,6 +690,15 @@ export interface operations {
             };
             /** @description Neautentificat */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Date invalide */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -622,7 +726,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ForgotPasswordRequestDto"];
+                "application/json": components["schemas"]["ForgotPasswordPayloadDto"];
             };
         };
         responses: {
@@ -632,11 +736,34 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TokenSentApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["TokenSentDataDto"];
+                    };
                 };
             };
             /** @description Date invalide */
-            400: {
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -664,7 +791,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ResetPasswordRequestDto"];
+                "application/json": components["schemas"]["ResetPasswordPayloadDto"];
             };
         };
         responses: {
@@ -674,11 +801,43 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MessageApiResponseDto"];
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["MessageDataDto"];
+                    };
                 };
             };
-            /** @description Cod invalid / date invalide */
+            /** @description Cod invalid / expirat */
             400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Date invalide */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };

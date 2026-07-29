@@ -1,3 +1,3 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
 
-export type User = components["schemas"]["UserResponseDto"]
+export type User = GetSchema<"UserDto">

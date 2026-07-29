@@ -1,5 +1,4 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
 
-/** POST /auth/login */
-export type LoginRequest = components["schemas"]["LoginRequestDto"]
-export type LoginResponse = components["schemas"]["AuthUserApiResponseDto"]
+export type LoginPayload = GetSchema<"LoginPayloadDto">
+export type LoginResponse = GetSchema<"AuthUserDataDto">

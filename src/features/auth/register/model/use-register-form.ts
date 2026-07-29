@@ -1,43 +1,27 @@
-import {
-  type FieldValues,
-  type SubmitHandler,
-  useForm as useFormHook,
-  type UseFormProps,
-} from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 
-import { OpenApiError } from "@shared/lib/openapi"
-import { type ApiResponse, type ErrorResponse } from "@shared/types"
+import { APP_ROUTES } from "@shared/config"
+import { useForm } from "@shared/lib/hooks"
 
-interface UseFormOptions<TFieldValues extends FieldValues, TResponse> {
-  onSubmit: (data: TFieldValues) => Promise<ApiResponse<TResponse>>
-  onSuccess?: (response: TResponse, data: TFieldValues) => void
-  onError?: (error: ErrorResponse | unknown) => void
-  formOptions?: UseFormProps<TFieldValues>
-}
+import { registerSchema, type RegisterFormValues } from "./schema"
+import { type RegisterResponse } from "./types"
+import { registerUser } from "../api/register"
 
-export const useForm = <TFieldValues extends FieldValues, TResponse>(
-  props: UseFormOptions<TFieldValues, TResponse>,
-) => {
-  const { onSubmit, onSuccess, onError, formOptions } = props
+export const useRegisterForm = () => {
+  const router = useRouter()
 
-  const form = useFormHook<TFieldValues>(formOptions)
-
-  const submitHandler: SubmitHandler<TFieldValues> = async (data) => {
-    try {
-      const response = await onSubmit(data)
-
-      if (response.success) {
-        onSuccess?.(response.data, data)
-      } else {
-        onError?.(response)
-      }
-    } catch (error) {
-      const apiError = error instanceof OpenApiError ? error : new OpenApiError(error)
-    }
-  }
-
-  return {
-    ...form,
-    handleFormSubmit: form.handleSubmit(submitHandler),
-  }
+  return useForm<RegisterFormValues, RegisterResponse>({
+    onSubmit: ({ email, password }) => registerUser({ email, password }),
+    onSuccess: () => router.replace(APP_ROUTES.VERIFY_EMAIL),
+    formOptions: {
+      resolver: zodResolver(registerSchema),
+      mode: "onTouched",
+      defaultValues: {
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+    },
+  })
 }

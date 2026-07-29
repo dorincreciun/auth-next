@@ -1,15 +1,17 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
+
+type ApiMeta = {
+  path?: string
+  timestamp?: string
+}
 
 export type SuccessResponse<T> = {
   success: true
   statusCode: number
-  timestamp: string
-  path: string
+  meta: ApiMeta
   data: T
 }
 
-export type ErrorResponse = Omit<components["schemas"]["ErrorResponseDto"], "success"> & {
-  success: false
-}
+export type ErrorResponse = GetSchema<"ErrorResponseDto">
 
 export type ApiResponse<T> = SuccessResponse<T> | ErrorResponse
