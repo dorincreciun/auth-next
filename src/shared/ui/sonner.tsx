@@ -16,8 +16,8 @@ const toasterVars = {
   "--normal-text": "var(--foreground)",
   "--normal-border": "rgba(255, 255, 255, 0.1)",
   "--border-radius": "0.5rem",
-  "--success-bg": "color-mix(in oklab, var(--primary) 14%, #0a0506)",
-  "--success-border": "color-mix(in oklab, var(--primary) 40%, transparent)",
+  "--success-bg": "color-mix(in oklab, #3d9a6a 12%, #0a0506)",
+  "--success-border": "color-mix(in oklab, #3d9a6a 38%, transparent)",
   "--success-text": "var(--foreground)",
   "--error-bg": "color-mix(in oklab, var(--destructive) 16%, #0a0506)",
   "--error-border": "color-mix(in oklab, var(--destructive) 45%, transparent)",
@@ -39,7 +39,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       closeButton
       richColors
       icons={{
-        success: <CircleCheckIcon className="size-4 text-primary" />,
+        success: <CircleCheckIcon className="size-4 text-[#5cb88a]" />,
         info: <InfoIcon className="size-4 text-muted-foreground" />,
         warning: <TriangleAlertIcon className="size-4 text-accent-foreground" />,
         error: <OctagonXIcon className="size-4 text-destructive" />,
@@ -52,6 +52,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "cn-toast group/toast !shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl",
           title: "text-sm font-medium tracking-tight",
           description: "!text-muted-foreground text-xs",
+          success: "[&_[data-title]]:text-[#b8e0c8]",
           actionButton:
             "!rounded-lg !bg-[linear-gradient(135deg,#ee2943_0%,#d31e5a_100%)] !text-primary-foreground !shadow-[0_10px_30px_rgba(234,40,69,0.35)]",
           cancelButton: "!rounded-lg !border !border-white/15 !bg-white/5 !text-foreground",
