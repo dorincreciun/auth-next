@@ -1,5 +1,5 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
 
 /** POST /auth/password/forgot */
-export type ForgotPasswordRequest = components["schemas"]["ForgotPasswordRequestDto"]
-export type ForgotPasswordResponse = components["schemas"]["TokenSentApiResponseDto"]
+export type ForgotPasswordPayload = GetSchema<"ForgotPasswordPayloadDto">
+export type ForgotPasswordData = GetSchema<"TokenSentDataDto">

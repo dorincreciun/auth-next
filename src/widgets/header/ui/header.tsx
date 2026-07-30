@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { APP_ROUTES } from "@shared/config"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 
 import { LoginButton } from "./login-button"
 
@@ -9,7 +9,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link
-          href={APP_ROUTES.ROOT}
+          href={getRoutePath(APP_ROUTES.ROOT)}
           className="text-sm font-semibold tracking-tight text-foreground"
         >
           Auth<span className="text-primary">Next</span>
@@ -17,7 +17,7 @@ export const Header = () => {
 
         <nav className="flex items-center gap-2">
           <Link
-            href={APP_ROUTES.PROFILE}
+            href={getRoutePath(APP_ROUTES.PROFILE)}
             className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
           >
             Setări

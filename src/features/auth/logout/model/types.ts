@@ -1,4 +1,4 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
 
 /** POST /auth/logout */
-export type LogoutResponse = components["schemas"]["MessageApiResponseDto"]
+export type LogoutResponse = GetSchema<"MessageDataDto">

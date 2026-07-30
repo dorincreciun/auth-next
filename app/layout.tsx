@@ -5,6 +5,7 @@ import type { Metadata } from "next"
 import "@app/styles/index.css"
 
 import { inter } from "@app/fonts"
+import { Toaster } from "@shared/ui/sonner"
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="ro" className={`dark ${inter.variable}`}>
       <body className={`${inter.className} antialiased`}>
         <div className="flex min-h-svh flex-col">{children}</div>
+        <Toaster />
       </body>
     </html>
   )

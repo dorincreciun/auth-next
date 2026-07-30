@@ -6,7 +6,7 @@ import {
   type UseFormProps,
 } from "react-hook-form"
 
-import { type ApiResponse, type ErrorResponse } from "@shared/types"
+import { type ApiResponse, type ErrorResponse } from "@shared/lib/openapi"
 
 /**
  * Opțiunile hook-ului {@link useForm}.
@@ -70,7 +70,7 @@ interface UseFormOptions<TFieldValues extends FieldValues, TResponse> {
  * ```tsx
  * const { register, handleFormSubmit, formState } = useForm<LoginFormValues, LoginResponse>({
  *   onSubmit: (values) => loginUser(values),
- *   onSuccess: () => router.replace(APP_ROUTES.PROFILE),
+ *   onSuccess: () => router.replace(getRoutePath(APP_ROUTES.PROFILE)),
  *   onError: (error) => toast.error(error.message),
  *   onUnexpectedError: () => toast.error("Ceva a mers prost. Încearcă din nou."),
  * })

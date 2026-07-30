@@ -1,8 +1,8 @@
-import { type components } from "@shared/lib/openapi"
+import { type GetSchema } from "@shared/lib/openapi"
 
 /** POST /auth/email/verify/confirm */
-export type ConfirmEmailRequest = components["schemas"]["ConfirmEmailRequestDto"]
-export type ConfirmEmailResponse = components["schemas"]["AuthUserApiResponseDto"]
+export type ConfirmEmailPayload = GetSchema<"ConfirmEmailPayloadDto">
+export type ConfirmEmailData = GetSchema<"MessageDataDto">
 
 /** POST /auth/email/verify/send */
-export type SendVerificationResponse = components["schemas"]["TokenSentApiResponseDto"]
+export type SendVerificationData = GetSchema<"TokenSentDataDto">

@@ -4,15 +4,20 @@ import "@shared/config/env"
 import { env } from "@shared/config/env"
 
 const nextConfig: NextConfig = {
-    /* config options here */
-    async rewrites() {
-        return [
-            {
-                source: "/api/:path*",
-                destination: `${env.SERVER_API_URL}/:path*`,
-            },
-        ]
+  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${env.SERVER_API_URL}/:path*`,
+      },
+    ]
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
     },
+  },
 }
 
 export default nextConfig

@@ -1,5 +1,4 @@
-import { client } from "@shared/lib/openapi"
-import { type ApiResponse } from "@shared/types"
+import { client, type ApiResponse } from "@shared/lib/openapi"
 
 import { type LoginPayload, type LoginResponse } from "../model/types"
 

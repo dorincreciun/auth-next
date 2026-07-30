@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 
 import { UserAvatar } from "@entities/user"
 import { LogoutButton } from "@features/auth/logout"
+import { getRoutePath } from "@shared/config"
 import { cn } from "@shared/lib/utils"
 
 import { accountNavItems, settingsNavLinkVariants } from "../model/settings-nav"
@@ -37,12 +38,13 @@ export const SettingsSidebar = () => {
         </p>
         <ul className="flex flex-col gap-1">
           {accountNavItems.map((item) => {
-            const isActive = pathname === item.href
+            const href = getRoutePath(item.route)
+            const isActive = pathname === href
 
             return (
-              <li key={item.href}>
+              <li key={href}>
                 <Link
-                  href={item.href}
+                  href={href}
                   className={cn(settingsNavLinkVariants({ active: isActive }))}
                 >
                   <item.icon aria-hidden />
@@ -54,7 +56,7 @@ export const SettingsSidebar = () => {
         </ul>
       </nav>
 
-      <footer className="mt-auto flex flex-col gap-2 border-t border-white/10 p-3">
+      <footer className="mt-auto flex flex-col gap-3 border-t border-white/10 p-3">
         <div className="flex items-center gap-2.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-2.5">
           <UserAvatar />
           <div className="min-w-0 flex-1">

@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 
 import type { Metadata } from "next"
 
+import { getMe } from "@entities/user/server"
 import { Card, CardContent, CardFooter, CardHeader } from "@shared/ui/card"
 import { Breadcrumb } from "@widgets/breadcrumb"
 import { Footer } from "@widgets/footer"
@@ -19,7 +20,7 @@ interface Props {
   children: ReactNode
 }
 
-export default function SettingsLayout({ children }: Props) {
+export default async function SettingsLayout({ children }: Props) {
   return (
     <main className="relative flex h-svh flex-col overflow-hidden">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -29,7 +30,7 @@ export default function SettingsLayout({ children }: Props) {
 
       <div className="relative mx-auto flex min-h-0 w-full max-w-[1920px] flex-1 gap-4 overflow-hidden p-4">
         <SettingsSidebar />
-        <Card className="flex min-h-0 w-full flex-1 flex-col overflow-hidden gap-0 py-0">
+        <Card className="flex min-h-0 w-full flex-1 flex-col gap-0 overflow-hidden py-0">
           <CardHeader className="shrink-0 border-b border-white/10 py-4">
             <Breadcrumb />
           </CardHeader>

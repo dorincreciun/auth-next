@@ -1,4 +1,4 @@
-import { type GetSchema } from "@shared/lib/openapi"
+import { type components } from "./v1"
 
 type ApiMeta = {
   path?: string
@@ -12,6 +12,6 @@ export type SuccessResponse<T> = {
   data: T
 }
 
-export type ErrorResponse = GetSchema<"ErrorResponseDto">
+export type ErrorResponse = components["schemas"]["ErrorResponseDto"]
 
 export type ApiResponse<T> = SuccessResponse<T> | ErrorResponse

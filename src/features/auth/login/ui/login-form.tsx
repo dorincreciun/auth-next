@@ -1,52 +1,73 @@
+"use client"
+
 import Link from "next/link"
 
-import { APP_ROUTES } from "@shared/config"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 import { Button } from "@shared/ui/button"
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@shared/ui/field"
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
+import { useLoginForm } from "../model/use-login-form"
+
 export const LoginForm = () => {
+  const { register, handleFormSubmit, formState } = useLoginForm()
+  const { errors, isSubmitting } = formState
+
   return (
-    <form>
+    <form
+      onSubmit={handleFormSubmit}
+      noValidate
+      className="animate-in fade-in duration-300 motion-reduce:animate-none"
+    >
       <FieldGroup>
-        <Field>
+        <Field data-invalid={!!errors.email}>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input
+            {...register("email")}
             id="email"
-            name="email"
             type="email"
             autoComplete="email"
             placeholder="nume@exemplu.com"
-            required
+            aria-invalid={!!errors.email}
           />
+          <FieldError errors={[errors.email]} />
         </Field>
-        <Field>
+        <Field data-invalid={!!errors.password}>
           <div className="flex items-center">
             <FieldLabel htmlFor="password">Parolă</FieldLabel>
             <Link
-              href={APP_ROUTES.FORGOT_PASSWORD}
-              className="text-muted-foreground ml-auto inline-block text-sm font-medium underline-offset-4 transition-colors hover:text-primary hover:underline"
+              href={getRoutePath(APP_ROUTES.FORGOT_PASSWORD)}
+              className="text-muted-foreground hover:text-primary ml-auto inline-block text-sm font-medium underline-offset-4 transition-colors hover:underline"
             >
               Ai uitat parola?
             </Link>
           </div>
           <Input
+            {...register("password")}
             id="password"
-            name="password"
             type="password"
             autoComplete="current-password"
-            required
+            aria-invalid={!!errors.password}
           />
+          <FieldError errors={[errors.password]} />
         </Field>
+        {!!errors.root && (
+          <Field data-invalid>
+            <FieldError errors={[errors.root]} />
+          </Field>
+        )}
         <Field>
-          <Button type="submit" size="lg" className="w-full">
-            Autentificare
+          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Se autentifică…" : "Autentificare"}
           </Button>
         </Field>
         <Field>
           <FieldDescription className="text-center">
             Nu ai cont?{" "}
-            <Link href={APP_ROUTES.REGISTER} className="font-medium text-primary hover:underline">
+            <Link
+              href={getRoutePath(APP_ROUTES.REGISTER)}
+              className="text-primary font-medium hover:underline"
+            >
               Înregistrează-te
             </Link>
           </FieldDescription>

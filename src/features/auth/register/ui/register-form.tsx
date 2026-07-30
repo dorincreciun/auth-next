@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 
-import { APP_ROUTES } from "@shared/config"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 import { Button } from "@shared/ui/button"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
@@ -75,7 +75,10 @@ export const RegisterForm = () => {
         <Field>
           <FieldDescription className="text-center">
             Ai deja cont?{" "}
-            <Link href={APP_ROUTES.LOGIN} className="text-primary font-medium hover:underline">
+            <Link
+              href={getRoutePath(APP_ROUTES.LOGIN)}
+              className="text-primary font-medium hover:underline"
+            >
               Autentifică-te
             </Link>
           </FieldDescription>
