@@ -3,7 +3,7 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
-import {useForm} from "@shared/hooks";
+import {useForm} from "@shared/lib/hooks";
 import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
 import {register} from "../api/register";
 import {REGISTER_MESSAGES} from "../config/messages";

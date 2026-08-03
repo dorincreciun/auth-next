@@ -1,8 +1,8 @@
 import { type ReactNode } from "react"
 
-import type { Metadata } from "next"
-
 import "@app/styles/index.css"
+
+import { type Metadata } from "next"
 
 import { inter } from "@app/fonts"
 import { Toaster } from "@shared/ui/sonner"

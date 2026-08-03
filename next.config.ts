@@ -1,6 +1,5 @@
 import type { NextConfig } from "next"
 
-import "@shared/config/env"
 import { env } from "@shared/config/env.config"
 
 const nextConfig: NextConfig = {

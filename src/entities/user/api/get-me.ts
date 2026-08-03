@@ -1,23 +1,19 @@
-import { cache } from "react"
+import "server-only";
 
-import { createServerClient } from "@shared/lib/openapi-server"
-
-import type { User } from "../model/types"
+import {server} from "@shared/api/server";
+import type {User} from "../model/types";
 
 /**
- * Userul curent, pe baza sesiunii din request. Doar pe server.
- *
- * `cache` memoizează rezultatul pe durata unui singur request de randare:
- * layout + pagină + widgeturi pot apela toate `getMe()` și `/auth/me`
- * se execută o singură dată. Nu persistă între navigări sau utilizatori.
+ * Profilul utilizatorului autentificat (doar pe server / RSC).
+ * Pe client importă din `@entities/user` (UI/tipuri), nu de aici.
  */
-export const getMe = cache(async (): Promise<User | null> => {
-  const api = await createServerClient()
-  const { data, error } = await api.GET("/auth/me")
+export const getMe = async (): Promise<User | null> => {
+  const api = await server();
+  const {data, error} = await api.GET("/auth/me");
 
-  if (error || !data) {
-    return null
+  if (error || !data?.success) {
+    return null;
   }
 
-  return data.data.user
-})
+  return data.data.user;
+};

@@ -22,7 +22,7 @@ import {
   InputOTPSlot,
 } from "@shared/ui/input-otp";
 import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
-import {useTokenCountdown} from "@shared/hooks";
+import {useTokenCountdown} from "@shared/lib/hooks";
 import {useResetPasswordForm} from "../model/use-reset-password-form";
 import {RESET_PASSWORD_MESSAGES} from "../config/messages";
 

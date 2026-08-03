@@ -1,11 +1,14 @@
-import type {Metadata} from "next";
-import type {ReactNode} from "react";
-import {redirect} from "next/navigation";
+import type { ReactNode } from "react"
 
-import {getMe} from "@entities/user/server";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
-import {Card, CardContent, CardFooter, CardHeader} from "@shared/ui/card";
-import {ProfileSidebar} from "@widgets/sidebar-profile";
+import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+
+import { getMe } from "@entities/user/server"
+import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
+import { Card, CardContent, CardFooter, CardHeader } from "@shared/ui/card"
+import { Breadcrumb } from "@widgets/breadcrumb"
+import { Footer } from "@widgets/footer"
+import { ProfileSidebar } from "@widgets/sidebar-profile"
 
 export const metadata: Metadata = {
   title: {
@@ -13,17 +16,17 @@ export const metadata: Metadata = {
     default: "Setări",
   },
   description: "Gestionează setările contului tău.",
-};
+}
 
 type ProfileLayoutProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
-export default async function ProfileLayout({children}: ProfileLayoutProps) {
-  const user = await getMe();
+export default async function ProfileLayout({ children }: ProfileLayoutProps) {
+  const user = await getMe()
 
   if (!user) {
-    redirect(getRoutePath(APP_ROUTES.LOGIN));
+    redirect(getRoutePath(APP_ROUTES.LOGIN))
   }
 
   return (
@@ -37,16 +40,14 @@ export default async function ProfileLayout({children}: ProfileLayoutProps) {
         <ProfileSidebar user={user} />
         <Card className="flex min-h-0 w-full flex-1 flex-col gap-0 overflow-hidden py-0">
           <CardHeader className="shrink-0 border-b border-white/10 py-4">
-            {/*<Breadcrumb />*/} Breadcrumb
+            <Breadcrumb />
           </CardHeader>
-          <CardContent className="min-h-0 flex-1 overflow-y-auto py-6">
-            {children}
-          </CardContent>
+          <CardContent className="min-h-0 flex-1 overflow-y-auto py-6">{children}</CardContent>
           <CardFooter className="mt-auto shrink-0 border-0 bg-transparent p-0">
-            {/*<Footer />*/} Footer
+            <Footer />
           </CardFooter>
         </Card>
       </div>
     </div>
-  );
+  )
 }

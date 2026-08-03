@@ -1,2 +1,2 @@
-export * from "./model/types"
-export * from "./ui/avatar"
+export type {User, UserResponse} from "./model/types";
+export {UserAvatar} from "./ui/user-avatar";
