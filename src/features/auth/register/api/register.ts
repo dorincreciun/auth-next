@@ -1,17 +1,18 @@
-import { client, type ApiResponse } from "@shared/lib/openapi"
+import {client} from "@shared/api";
+import type {RegisterRequest, RegisterResponse} from "../model/types";
 
-import { type RegisterPayload, type RegisterResponse } from "../model/types"
-
-export const registerUser = async (
-  payload: RegisterPayload,
-): Promise<ApiResponse<RegisterResponse>> => {
-  const { data, error } = await client.POST("/auth/register", {
-    body: payload,
-  })
+export const register = async (
+  values: RegisterRequest,
+): Promise<RegisterResponse> => {
+  const {data, error} = await client.POST("/auth/register", {body: values});
 
   if (error) {
-    return error
+    return error;
   }
 
-  return data
-}
+  if (!data) {
+    throw new Error("Empty register response");
+  }
+
+  return data;
+};

@@ -1,11 +1,16 @@
-import { client, type ApiResponse } from "@shared/lib/openapi"
+import {client} from "@shared/api";
+import type {LogoutResponse} from "../model/types";
 
-import { type LogoutResponse } from "../model/types"
+export const logout = async (): Promise<LogoutResponse> => {
+  const {data, error} = await client.POST("/auth/logout");
 
-export const logout = async (): Promise<ApiResponse<LogoutResponse>> => {
-  const { data, error } = await client.POST("/auth/logout")
+  if (error) {
+    return error;
+  }
 
-  if (error) return error
+  if (!data) {
+    throw new Error("Empty logout response");
+  }
 
-  return data
-}
+  return data;
+};

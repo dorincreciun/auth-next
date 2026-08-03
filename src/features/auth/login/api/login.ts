@@ -1,13 +1,16 @@
-import { client, type ApiResponse } from "@shared/lib/openapi"
+import {client} from "@shared/api";
+import type {LoginRequest, LoginResponse} from "../model/types";
 
-import { type LoginPayload, type LoginResponse } from "../model/types"
-
-export const login = async (body: LoginPayload): Promise<ApiResponse<LoginResponse>> => {
-  const { data, error } = await client.POST("/auth/login", { body })
+export const login = async (values: LoginRequest): Promise<LoginResponse> => {
+  const {data, error} = await client.POST("/auth/login", {body: values});
 
   if (error) {
-    return error
+    return error;
   }
 
-  return data
-}
+  if (!data) {
+    throw new Error("Empty login response");
+  }
+
+  return data;
+};

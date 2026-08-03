@@ -1,5 +1,10 @@
-import { type GetSchema } from "@shared/lib/openapi"
+import type {ApiRequestBody, ApiResponse} from "@shared/api";
 
-/** POST /auth/password/forgot */
-export type ForgotPasswordPayload = GetSchema<"ForgotPasswordPayloadDto">
-export type ForgotPasswordData = GetSchema<"TokenSentDataDto">
+export type ForgotPasswordRequest = ApiRequestBody<
+  "/auth/password/forgot",
+  "post"
+>;
+export type ForgotPasswordResponse = ApiResponse<
+  "/auth/password/forgot",
+  "post"
+>;

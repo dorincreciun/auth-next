@@ -1,2 +1,1 @@
-export * from "./model/types"
-export * from "./ui/logout-button"
+export {LogoutButton} from "./ui/logout-button";

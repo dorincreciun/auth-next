@@ -1,2 +1,1 @@
-export * from "./model/types"
-export * from "./ui/reset-password-form"
+export {ResetPasswordForm} from "./ui/reset-password-form";

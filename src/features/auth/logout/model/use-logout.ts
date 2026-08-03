@@ -1,36 +1,40 @@
-import { useCallback, useTransition } from "react"
+"use client";
 
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-
-import { APP_ROUTES, getRoutePath } from "@shared/config"
-
-import { logout } from "../api/logout"
-
-const LOGOUT_ERROR_MESSAGE = "A apărut o eroare la delogare. Încearcă din nou."
+import {useTransition} from "react";
+import {useRouter} from "next/navigation";
+import {toast} from "sonner";
+import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
+import {logout as logoutRequest} from "../api/logout";
+import {LOGOUT_MESSAGES} from "../config/messages";
 
 export const useLogout = () => {
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const handleLogout = useCallback(() => {
+  const logout = () => {
+    if (isPending) {
+      return;
+    }
+
     startTransition(async () => {
       try {
-        const response = await logout()
+        const response = await logoutRequest();
 
         if (response.success) {
-          toast.success(response.data.message)
-          router.push(getRoutePath(APP_ROUTES.LOGIN))
-          router.refresh()
-        } else {
-          toast.error(response.message)
+          toast.success(LOGOUT_MESSAGES.SUCCESS);
+          router.replace(getRoutePath(APP_ROUTES.LOGIN));
+          return;
         }
-      } catch (err) {
-        console.error("Logout failed:", err)
-        toast.error(LOGOUT_ERROR_MESSAGE)
-      }
-    })
-  }, [router])
 
-  return { isPending, logout: handleLogout }
-}
+        toast.error(response.message);
+      } catch {
+        toast.error(LOGOUT_MESSAGES.ERROR);
+      }
+    });
+  };
+
+  return {
+    logout,
+    isPending,
+  };
+};

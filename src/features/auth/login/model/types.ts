@@ -1,4 +1,4 @@
-import { type GetSchema } from "@shared/lib/openapi"
+import type {ApiRequestBody, ApiResponse} from "@shared/api";
 
-export type LoginPayload = GetSchema<"LoginPayloadDto">
-export type LoginResponse = GetSchema<"AuthUserDataDto">
+export type LoginRequest = ApiRequestBody<"/auth/login", "post">;
+export type LoginResponse = ApiResponse<"/auth/login", "post">;

@@ -1,35 +1,33 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+"use client";
 
-import { APP_ROUTES, getRoutePath } from "@shared/config"
-import { useForm } from "@shared/lib/hooks"
-
-import { registerSchema, type RegisterFormValues } from "./schema"
-import { type RegisterResponse } from "./types"
-import { registerUser } from "../api/register"
-
-const REGISTER_ERROR_MESSAGE = "A apărut o eroare la înregistrare. Încearcă din nou."
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useRouter} from "next/navigation";
+import {toast} from "sonner";
+import {useForm} from "@shared/hooks";
+import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
+import {register} from "../api/register";
+import {REGISTER_MESSAGES} from "../config/messages";
+import {registerSchema} from "./schema";
+import type {RegisterRequest, RegisterResponse} from "./types";
 
 export const useRegisterForm = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  return useForm<RegisterFormValues, RegisterResponse>({
-    onSubmit: ({ email, password }) => registerUser({ email, password }),
+  return useForm<RegisterRequest, RegisterResponse>({
+    onSubmit: (values) => register(values),
     onSuccess: () => {
-      toast.success("Cont creat cu succes")
-      router.replace(getRoutePath(APP_ROUTES.VERIFY_EMAIL))
+      toast.success(REGISTER_MESSAGES.SUCCESS);
+      router.replace(getRoutePath(APP_ROUTES.PROFILE));
     },
     onError: (error) => toast.error(error.message),
-    onUnexpectedError: () => toast.error(REGISTER_ERROR_MESSAGE),
+    onUnexpectedError: () => toast.error(REGISTER_MESSAGES.ERROR),
     formOptions: {
-      resolver: zodResolver(registerSchema),
       mode: "onTouched",
+      resolver: zodResolver(registerSchema),
       defaultValues: {
         email: "",
         password: "",
-        confirmPassword: "",
       },
     },
-  })
-}
+  });
+};

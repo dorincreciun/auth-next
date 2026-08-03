@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
 
 import "@shared/config/env"
-import { env } from "@shared/config/env"
+import { env } from "@shared/config/env.config"
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `${env.SERVER_API_URL}/:path*`,
+        destination: `${env.API_URL}/:path*`,
       },
     ]
   },

@@ -1,8 +1,7 @@
-"use client"
+"use client";
 
-import { LogOut } from "lucide-react"
-
-import { Button } from "@shared/ui/button"
+import {LogOut} from "lucide-react";
+import {Button} from "@shared/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -12,12 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@shared/ui/dialog"
-
-import { useLogout } from "../model/use-logout"
+} from "@shared/ui/dialog";
+import {useLogout} from "../model/use-logout";
 
 export const LogoutButton = () => {
-  const { isPending, logout } = useLogout()
+  const {isPending, logout} = useLogout();
 
   return (
     <Dialog>
@@ -29,19 +27,19 @@ export const LogoutButton = () => {
           disabled={isPending}
         >
           <LogOut data-icon="inline-start" />
-          {isPending ? "Se deconectează..." : "Deconectează-te"}
+          {isPending ? "Se deconectează…" : "Deconectează-te"}
         </Button>
       </DialogTrigger>
 
       <DialogContent
-        className="bg-card/95 border-white/10 backdrop-blur-xl"
+        className="border-white/10 bg-card/95 backdrop-blur-xl"
         showCloseButton={!isPending}
       >
         <DialogHeader>
           <DialogTitle>Deconectare</DialogTitle>
           <DialogDescription>
-            Ești sigur că vrei să te deconectezi? Va trebui să te autentifici din nou pentru a
-            accesa contul.
+            Ești sigur că vrei să te deconectezi? Va trebui să te autentifici din
+            nou pentru a accesa contul.
           </DialogDescription>
         </DialogHeader>
 
@@ -64,10 +62,10 @@ export const LogoutButton = () => {
             onClick={logout}
           >
             <LogOut data-icon="inline-start" />
-            {isPending ? "Se deconectează..." : "Deconectează-te"}
+            {isPending ? "Se deconectează…" : "Deconectează-te"}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

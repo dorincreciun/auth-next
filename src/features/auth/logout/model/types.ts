@@ -1,4 +1,3 @@
-import { type GetSchema } from "@shared/lib/openapi"
+import type {ApiResponse} from "@shared/api";
 
-/** POST /auth/logout */
-export type LogoutResponse = GetSchema<"MessageDataDto">
+export type LogoutResponse = ApiResponse<"/auth/logout", "post">;

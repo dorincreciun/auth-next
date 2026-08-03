@@ -1,5 +1,10 @@
-import { type GetSchema } from "@shared/lib/openapi"
+import type {ApiRequestBody, ApiResponse} from "@shared/api";
 
-/** POST /auth/password/reset */
-export type ResetPasswordPayload = GetSchema<"ResetPasswordPayloadDto">
-export type ResetPasswordData = GetSchema<"MessageDataDto">
+export type ResetPasswordRequest = ApiRequestBody<
+  "/auth/password/reset",
+  "post"
+>;
+export type ResetPasswordResponse = ApiResponse<
+  "/auth/password/reset",
+  "post"
+>;
