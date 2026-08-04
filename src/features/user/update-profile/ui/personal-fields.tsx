@@ -1,9 +1,12 @@
 import { Field, FieldDescription, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
-import { PROFILE_FORM_DEFAULTS } from "../model/constants"
+interface PersonalFieldsProps {
+  firstName: string | null
+  lastName: string | null
+}
 
-export const PersonalFields = () => {
+export const PersonalFields = ({ firstName, lastName }: PersonalFieldsProps) => {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field>
@@ -12,8 +15,8 @@ export const PersonalFields = () => {
           id="firstName"
           name="firstName"
           autoComplete="given-name"
-          defaultValue={PROFILE_FORM_DEFAULTS.firstName}
-          placeholder="Ion"
+          {...(firstName ? { defaultValue: firstName } : {})}
+          placeholder="Prenume"
         />
         <FieldDescription>Numele afișat în contul tău.</FieldDescription>
       </Field>
@@ -24,8 +27,8 @@ export const PersonalFields = () => {
           id="lastName"
           name="lastName"
           autoComplete="family-name"
-          defaultValue={PROFILE_FORM_DEFAULTS.lastName}
-          placeholder="Popescu"
+          {...(lastName ? { defaultValue: lastName } : {})}
+          placeholder="Nume"
         />
         <FieldDescription>Numele de familie asociat contului.</FieldDescription>
       </Field>

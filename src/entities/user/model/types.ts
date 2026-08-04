@@ -1,4 +1,6 @@
-import type {ApiResponse, GetSchema} from "@shared/api";
+import type { ApiResponse, GetSchema } from "@shared/api"
 
-export type User = GetSchema<"UserDto">;
-export type UserResponse = ApiResponse<'/auth/me', 'get'>;
+export type User = GetSchema<"UserDto">
+export type UserProfile = GetSchema<"UserProfileDto">
+
+export type UserResponse = ApiResponse<"/auth/me", "get">

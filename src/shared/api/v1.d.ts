@@ -13,7 +13,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Înregistrare utilizator nou */
+        /**
+         * Înregistrare utilizator nou
+         * @description Creează contul, inițiază sesiunea și returnează userul public. `user.profile` este `null` aici (profilul se citește pe GET /auth/me).
+         */
         post: operations["AuthController_register"];
         delete?: never;
         options?: never;
@@ -30,7 +33,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Autentificare cu email și parolă */
+        /**
+         * Autentificare cu email și parolă
+         * @description Validează credențialele, regenerază sesiunea și returnează userul public. `user.profile` este `null` aici (profilul se citește pe GET /auth/me).
+         */
         post: operations["AuthController_login"];
         delete?: never;
         options?: never;
@@ -62,7 +68,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Profilul utilizatorului autentificat */
+        /**
+         * Profilul utilizatorului autentificat
+         * @description Returnează contul curent împreună cu profilul nested (`user.profile`). Spre deosebire de register/login, aici relația `profile` este încărcată din DB.
+         */
         get: operations["AuthController_getMe"];
         put?: never;
         post?: never;
@@ -144,17 +153,56 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        UserProfileDto: {
+            /**
+             * @description Prenumele
+             * @example Ion
+             */
+            firstName: string | null;
+            /**
+             * @description Numele de familie
+             * @example Popescu
+             */
+            lastName: string | null;
+            /**
+             * @description URL-ul avatarului
+             * @example https://cdn.example.com/avatars/ion.png
+             */
+            avatarUrl: string | null;
+            /**
+             * @description Locația (oraș / țară)
+             * @example Chișinău, Moldova
+             */
+            location: string | null;
+            /**
+             * @description Titlul / funcția profesională
+             * @example Software Engineer
+             */
+            jobTitle: string | null;
+            /**
+             * @description Descriere scurtă (bio)
+             * @example Pasionat de NestJS și TypeScript.
+             */
+            bio: string | null;
+        };
         UserDto: {
+            /** @description Profilul public nested. null pe login/register; populat pe GET /auth/me. */
+            profile: components["schemas"]["UserProfileDto"] | null;
+            /**
+             * @description Identificatorul unic al utilizatorului (UUID)
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            id: string;
             /**
              * @description Adresa de email a utilizatorului
              * @example test@gmail.com
              */
             email: string;
             /**
-             * @description Identificatorul unic al utilizatorului (UUID)
-             * @example 123e4567-e89b-12d3-a456-426614174000
+             * @description Dacă adresa de email a fost confirmată
+             * @example false
              */
-            id: string;
+            isVerified: boolean;
             /**
              * Format: date-time
              * @description Data și ora la care a fost creat contul
@@ -167,14 +215,9 @@ export interface components {
              * @example 2026-07-24T12:30:00.000Z
              */
             updatedAt: string;
-            /**
-             * @description Dacă adresa de email a fost confirmată
-             * @example false
-             */
-            isVerified: boolean;
         };
         AuthUserDataDto: {
-            /** @description Profilul utilizatorului autentificat */
+            /** @description Utilizatorul public. Pe /auth/me include profile; pe register/login profile este null. */
             user: components["schemas"]["UserDto"];
         };
         RegisterPayloadDto: {
@@ -315,7 +358,7 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Utilizator creat și sesiune inițiată */
+            /** @description Utilizator creat și sesiune inițiată (profile: null) */
             201: {
                 headers: {
                     [name: string]: unknown;
@@ -389,7 +432,7 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Autentificare reușită */
+            /** @description Autentificare reușită (profile: null) */
             200: {
                 headers: {
                     [name: string]: unknown;
@@ -511,7 +554,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Profilul utilizatorului din sesiune */
+            /** @description Utilizator + profil nested din sesiune */
             200: {
                 headers: {
                     [name: string]: unknown;

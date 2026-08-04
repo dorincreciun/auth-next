@@ -1,3 +1,5 @@
-import {DefaultProfilePage} from "@pages/profile";
+import { DefaultProfilePage } from "@pages/profile"
 
-export default () => <DefaultProfilePage/>
+export default function ProfilePage() {
+  return <DefaultProfilePage />
+}

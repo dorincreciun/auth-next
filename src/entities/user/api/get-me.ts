@@ -1,3 +1,5 @@
+import { cache } from "react"
+
 import "server-only"
 
 import { server } from "@shared/api/server"
@@ -7,8 +9,9 @@ import type { User } from "../model/types"
 /**
  * Profilul utilizatorului autentificat (doar pe server / RSC).
  * Pe client importă din `@entities/user` (UI/tipuri), nu de aici.
+ * `cache` dedupează apelurile din layout + page în același request.
  */
-export const getMe = async (): Promise<User | null> => {
+export const getMe = cache(async (): Promise<User | null> => {
   const api = await server()
   const { data, error } = await api.GET("/auth/me")
 
@@ -17,4 +20,4 @@ export const getMe = async (): Promise<User | null> => {
   }
 
   return data.data.user
-}
+})

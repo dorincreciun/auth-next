@@ -2,13 +2,17 @@
 
 import { Upload } from "lucide-react"
 
-import { Avatar, AvatarFallback } from "@shared/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@shared/ui/avatar"
 import { Button } from "@shared/ui/button"
 
 import { useChangeAvatar } from "../model/use-change-avatar"
 import { AvatarCropDialog } from "./avatar-crop-dialog"
 
-export const ChangeAvatar = () => {
+type ChangeAvatarProps = {
+  avatarUrl?: string | null
+}
+
+export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
   const {
     previewUrl,
     crop,
@@ -30,6 +34,7 @@ export const ChangeAvatar = () => {
     <div className="flex items-center gap-5">
       <div className="shrink-0 rounded-full border border-white/10 bg-white/5 p-1 shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
         <Avatar size="2xl">
+          {avatarUrl ? <AvatarImage src={avatarUrl} alt="Avatar" /> : null}
           <AvatarFallback>?</AvatarFallback>
         </Avatar>
       </div>

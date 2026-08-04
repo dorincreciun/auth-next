@@ -1,9 +1,13 @@
 import { Field, FieldDescription, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
-import { PROFILE_FORM_DEFAULTS } from "../model/constants"
+type AboutFieldsProps = {
+  location: string | null
+  jobTitle: string | null
+  bio: string | null
+}
 
-export const AboutFields = () => {
+export const AboutFields = ({ location, jobTitle, bio }: AboutFieldsProps) => {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field>
@@ -11,7 +15,7 @@ export const AboutFields = () => {
         <Input
           id="location"
           name="location"
-          defaultValue={PROFILE_FORM_DEFAULTS.location}
+          {...(location ? { defaultValue: location } : {})}
           placeholder="Oraș / țară"
         />
         <FieldDescription>Orașul în care locuiești sau lucrezi.</FieldDescription>
@@ -22,7 +26,7 @@ export const AboutFields = () => {
         <Input
           id="jobTitle"
           name="jobTitle"
-          defaultValue={PROFILE_FORM_DEFAULTS.jobTitle}
+          {...(jobTitle ? { defaultValue: jobTitle } : {})}
           placeholder="Rolul tău"
         />
         <FieldDescription>Rolul sau poziția ta profesională.</FieldDescription>
@@ -33,7 +37,7 @@ export const AboutFields = () => {
         <textarea
           id="bio"
           name="bio"
-          defaultValue={PROFILE_FORM_DEFAULTS.bio}
+          {...(bio ? { defaultValue: bio } : {})}
           placeholder="Scrie câteva rânduri despre tine..."
           className="text-foreground placeholder:text-muted-foreground focus-visible:border-primary/60 focus-visible:ring-primary/25 min-h-28 w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm transition-colors outline-none focus-visible:ring-3"
         />
