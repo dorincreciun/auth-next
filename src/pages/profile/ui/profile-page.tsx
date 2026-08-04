@@ -1,20 +1,14 @@
-import { ChangeAvatar } from "@features/change-avatar"
-import { DeleteAccountForm } from "@features/delete-account"
-import { UpdateProfileForm } from "@features/update-profile"
+import { ChangeAvatar } from "@features/user/change-avatar"
+import { DeleteAccountForm } from "@features/user/delete-account"
+import { UpdateProfileForm } from "@features/user/update-profile"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 
 export const DefaultProfilePage = () => {
   return (
-    <div className="[&>section:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-child)]:border-b [&>section:not(:last-child)]:pb-10">
+    <div className="[&>*:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:pb-10">
       <ChangeAvatar />
 
-      <Section>
-        <SectionTitle>Informații personale</SectionTitle>
-        <SectionDescription>Actualizează datele afișate în contul tău.</SectionDescription>
-        <SectionContent>
-          <UpdateProfileForm />
-        </SectionContent>
-      </Section>
+      <UpdateProfileForm />
 
       <Section variant="danger">
         <SectionTitle>Zona periculoasă</SectionTitle>

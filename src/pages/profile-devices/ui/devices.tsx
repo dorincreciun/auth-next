@@ -1,5 +1,5 @@
-import { FAKE_DEVICES, ListDevices } from "@features/list-devices"
-import { SignOutAllDevices } from "@features/sign-out-all-devices"
+import { FAKE_DEVICES, ListDevices } from "@features/user/list-devices"
+import { SignOutAllDevices } from "@features/user/sign-out-all-devices"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 import { Leaflet } from "@widgets/leaflet"
 
@@ -24,7 +24,7 @@ export const SettingsDevicesPage = () => {
         </SectionContent>
       </Section>
 
-      <Section>
+      <Section variant="danger">
         <SectionTitle>Deconectare de pe toate dispozitivele</SectionTitle>
         <SectionDescription>
           Încheie toate sesiunile active, inclusiv cea curentă.

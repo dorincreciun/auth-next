@@ -1,20 +1,18 @@
-"use client"
-
 import { Field, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
-export const ChangeEmail = () => {
+import { SECURITY_FORM_DEFAULTS } from "../model/constants"
+
+export const EmailField = () => {
   return (
     <Field>
-      <FieldLabel htmlFor="email" className="sr-only">
-        Email
-      </FieldLabel>
+      <FieldLabel htmlFor="email">Email</FieldLabel>
       <Input
         id="email"
         name="email"
         type="email"
         autoComplete="email"
-        defaultValue="ion.popescu@exemplu.com"
+        defaultValue={SECURITY_FORM_DEFAULTS.email}
         placeholder="nume@exemplu.com"
       />
     </Field>
