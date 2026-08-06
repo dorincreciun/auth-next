@@ -64,17 +64,25 @@ export type ApiResponse<Path extends keyof paths, Method extends keyof paths[Pat
 
 /**
  * Extrage tipul body-ului de request pentru un endpoint și metodă date.
+ * Suportă `application/json` și `multipart/form-data`.
  *
  * @typeParam Path - Calea endpoint-ului, exact cum apare în `paths`.
  * @typeParam Method - Metoda HTTP (`"post"`, `"patch"`, `"put"`, etc.).
  *
  * @example
  * ```ts
- * type CreateSessionPayload = ApiRequestBody<"/sessions", "post">;
+ * type LoginPayload = ApiRequestBody<"/auth/login", "post">;
+ * type AvatarPayload = ApiRequestBody<"/users/upload/avatar", "post">;
  * ```
  */
 export type ApiRequestBody<Path extends keyof paths, Method extends keyof paths[Path]> =
-    paths[Path][Method] extends { requestBody: { content: { "application/json": infer B } }; } ? B : never;
+    paths[Path][Method] extends { requestBody: { content: infer C } }
+      ? C extends { "application/json": infer B }
+        ? B
+        : C extends { "multipart/form-data": infer B }
+          ? B
+          : never
+      : never;
 
 /**
  * Extrage tipul parametrilor din path (ex. `{id}` din `/sessions/{id}`).

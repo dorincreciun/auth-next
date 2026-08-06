@@ -4,6 +4,82 @@
  */
 
 export interface paths {
+    "/users/upload/avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Încarcă avatarul utilizatorului autentificat
+         * @description Acceptă un fișier imagine (`avatarFile`) via `multipart/form-data`. Tipuri permise: JPEG, PNG, WebP, GIF. Dimensiune maximă: 2 MB. Returnează profilul public actualizat (`UserProfileDto`).
+         */
+        post: operations["UsersController_uploadAvatar"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/me/avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Șterge avatarul utilizatorului autentificat
+         * @description Șterge imaginea de pe Cloudinary și golește `avatarUrl` din profil. Returnează profilul public actualizat (`UserProfileDto`).
+         */
+        delete: operations["UsersController_deleteAvatar"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/me/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Actualizează profilul utilizatorului autentificat
+         * @description Actualizează câmpurile din `user_profiles` pentru userul din sesiune. Returnează doar profilul public (`UserProfileDto`), fără id/userId interne. Avatarul se schimbă printr-un endpoint separat de upload.
+         */
+        patch: operations["UsersController_updateProfile"];
+        trace?: never;
+    };
+    "/file/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["FileController_uploadFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/register": {
         parameters: {
             query?: never;
@@ -185,6 +261,88 @@ export interface components {
              */
             bio: string | null;
         };
+        UserProfileDataDto: {
+            /** @description Profilul public actualizat */
+            profile: components["schemas"]["UserProfileDto"];
+        };
+        UpdateUserAvatarPayloadDto: {
+            /**
+             * Format: binary
+             * @description Fișier imagine (JPEG, PNG, WebP sau GIF), maxim 2 MB
+             */
+            avatarFile: Blob;
+        };
+        ErrorResponseDto: {
+            /**
+             * @description Indică un răspuns de eroare
+             * @example false
+             * @enum {boolean}
+             */
+            success: false;
+            /**
+             * @description Codul HTTP al erorii
+             * @example 422
+             */
+            statusCode: number;
+            /**
+             * @description Mesaj human-readable, gata de afișat global
+             * @example Validation failed
+             */
+            message: string;
+            /**
+             * @description Erori pe câmp. null când eroarea nu e legată de câmpuri.
+             * @example {
+             *       "email": [
+             *         "Adresa de email nu este validă"
+             *       ],
+             *       "password": [
+             *         "Parola trebuie să aibă minim 8 caractere"
+             *       ]
+             *     }
+             */
+            details: {
+                [key: string]: string[];
+            } | null;
+            /**
+             * @description Meta informații utile pentru debugging
+             * @example {
+             *       "path": "/auth/login",
+             *       "timestamp": "2026-07-27T08:00:00.000Z"
+             *     }
+             */
+            meta: {
+                path?: string;
+                /** Format: date-time */
+                timestamp?: string;
+            };
+        };
+        UpdateUserProfilePayloadDto: {
+            /**
+             * @description Prenumele
+             * @example Ion
+             */
+            firstName?: string;
+            /**
+             * @description Numele de familie
+             * @example Popescu
+             */
+            lastName?: string;
+            /**
+             * @description Locația (oraș / țară)
+             * @example Chișinău, Moldova
+             */
+            location?: string;
+            /**
+             * @description Titlul / funcția profesională
+             * @example Software Engineer
+             */
+            jobTitle?: string;
+            /**
+             * @description Descriere scurtă (bio)
+             * @example Pasionat de NestJS și TypeScript.
+             */
+            bio?: string;
+        };
         UserDto: {
             /** @description Profilul public nested. null pe login/register; populat pe GET /auth/me. */
             profile: components["schemas"]["UserProfileDto"] | null;
@@ -232,50 +390,6 @@ export interface components {
              * @example Password123!
              */
             password: string;
-        };
-        ErrorResponseDto: {
-            /**
-             * @description Indică un răspuns de eroare
-             * @example false
-             * @enum {boolean}
-             */
-            success: false;
-            /**
-             * @description Codul HTTP al erorii
-             * @example 422
-             */
-            statusCode: number;
-            /**
-             * @description Mesaj human-readable, gata de afișat global
-             * @example Validation failed
-             */
-            message: string;
-            /**
-             * @description Erori pe câmp. null când eroarea nu e legată de câmpuri.
-             * @example {
-             *       "email": [
-             *         "Adresa de email nu este validă"
-             *       ],
-             *       "password": [
-             *         "Parola trebuie să aibă minim 8 caractere"
-             *       ]
-             *     }
-             */
-            details: {
-                [key: string]: string[];
-            } | null;
-            /**
-             * @description Meta informații utile pentru debugging
-             * @example {
-             *       "path": "/auth/login",
-             *       "timestamp": "2026-07-27T08:00:00.000Z"
-             *     }
-             */
-            meta: {
-                path?: string;
-                /** Format: date-time */
-                timestamp?: string;
-            };
         };
         LoginPayloadDto: {
             /**
@@ -345,6 +459,241 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    UsersController_uploadAvatar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["UpdateUserAvatarPayloadDto"];
+            };
+        };
+        responses: {
+            /** @description Avatar încărcat; profil actualizat */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["UserProfileDataDto"];
+                    };
+                };
+            };
+            /** @description Fișier lipsă / invalid / prea mare */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Neautentificat */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Prea multe cereri */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    UsersController_deleteAvatar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Avatar șters; profil actualizat */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["UserProfileDataDto"];
+                    };
+                };
+            };
+            /** @description Nu există avatar de șters */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Neautentificat */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Prea multe cereri */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    UsersController_updateProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateUserProfilePayloadDto"];
+            };
+        };
+        responses: {
+            /** @description Profil actualizat */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["UserProfileDataDto"];
+                    };
+                };
+            };
+            /** @description Neautentificat */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Date invalide / body gol */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Prea multe cereri */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    FileController_uploadFile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     AuthController_register: {
         parameters: {
             query?: never;

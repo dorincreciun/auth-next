@@ -2,13 +2,16 @@
 
 import { useCallback, useRef, useState } from "react"
 
+import { useRouter } from "next/navigation"
 import type { Area, Point } from "react-easy-crop"
 import { toast } from "sonner"
 
-import { getCroppedImg } from "../lib/get-cropped-img"
 import { ZOOM_DEFAULT } from "./constants"
+import { uploadAvatar } from "../api/upload-avatar"
+import { getCroppedImg } from "../lib/get-cropped-img"
 
 export const useChangeAvatar = () => {
+  const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -56,17 +59,26 @@ export const useChangeAvatar = () => {
     setIsSaving(true)
     try {
       const croppedBlob = await getCroppedImg(previewUrl, croppedArea)
+      const avatarFile = new File([croppedBlob], "avatar.jpg", {
+        type: "image/jpeg",
+      })
 
-      console.log("Cropped Blob:", croppedBlob)
+      const response = await uploadAvatar({ avatarFile })
+
+      if (!response.success) {
+        toast.error(response.message || "A apărut o eroare la salvarea avatarului.")
+        return
+      }
 
       toast.success("Avatarul a fost actualizat cu succes!")
       resetState()
+      router.refresh()
     } catch {
       toast.error("A apărut o eroare la salvarea avatarului.")
     } finally {
       setIsSaving(false)
     }
-  }, [croppedArea, previewUrl, resetState])
+  }, [croppedArea, previewUrl, resetState, router])
 
   const openFilePicker = useCallback(() => {
     inputRef.current?.click()

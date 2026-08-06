@@ -5,8 +5,8 @@ import { Upload } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@shared/ui/avatar"
 import { Button } from "@shared/ui/button"
 
-import { useChangeAvatar } from "../model/use-change-avatar"
 import { AvatarCropDialog } from "./avatar-crop-dialog"
+import { useChangeAvatar } from "../model/use-change-avatar"
 
 type ChangeAvatarProps = {
   avatarUrl?: string | null
@@ -51,12 +51,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           onChange={onFileChange}
         />
 
-        <Button
-          type="button"
-          size="sm"
-          className="h-8 max-w-max gap-1.5"
-          onClick={openFilePicker}
-        >
+        <Button type="button" size="sm" className="h-8 max-w-max gap-1.5" onClick={openFilePicker}>
           <Upload data-icon="inline-start" />
           Alege fișier
         </Button>
