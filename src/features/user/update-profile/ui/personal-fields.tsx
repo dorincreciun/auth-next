@@ -1,36 +1,44 @@
-import { Field, FieldDescription, FieldLabel } from "@shared/ui/field"
+"use client"
+
+import type { UseFormRegister, FieldErrors } from "react-hook-form"
+
+import { Field, FieldDescription, FieldError, FieldLabel } from "@shared/ui/field"
 import { Input } from "@shared/ui/input"
 
-interface PersonalFieldsProps {
-  firstName: string | null
-  lastName: string | null
+import type { UpdateProfileRequest } from "../model/types"
+
+type PersonalFieldsProps = {
+  register: UseFormRegister<UpdateProfileRequest>
+  errors: FieldErrors<UpdateProfileRequest>
 }
 
-export const PersonalFields = ({ firstName, lastName }: PersonalFieldsProps) => {
+export const PersonalFields = ({ register, errors }: PersonalFieldsProps) => {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-      <Field>
+      <Field data-invalid={!!errors.firstName}>
         <FieldLabel htmlFor="firstName">Prenume</FieldLabel>
         <Input
+          {...register("firstName")}
           id="firstName"
-          name="firstName"
           autoComplete="given-name"
-          {...(firstName ? { defaultValue: firstName } : {})}
           placeholder="Prenume"
+          aria-invalid={!!errors.firstName}
         />
         <FieldDescription>Numele afișat în contul tău.</FieldDescription>
+        <FieldError errors={[errors.firstName]} />
       </Field>
 
-      <Field>
+      <Field data-invalid={!!errors.lastName}>
         <FieldLabel htmlFor="lastName">Nume</FieldLabel>
         <Input
+          {...register("lastName")}
           id="lastName"
-          name="lastName"
           autoComplete="family-name"
-          {...(lastName ? { defaultValue: lastName } : {})}
           placeholder="Nume"
+          aria-invalid={!!errors.lastName}
         />
         <FieldDescription>Numele de familie asociat contului.</FieldDescription>
+        <FieldError errors={[errors.lastName]} />
       </Field>
     </div>
   )

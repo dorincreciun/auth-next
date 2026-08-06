@@ -1,7 +1,4 @@
-export type UpdateProfileRequest = {
-  firstName: string
-  lastName: string
-  location: string
-  jobTitle: string
-  bio: string
-}
+import { type ApiRequestBody, type ApiResponse } from "@shared/api"
+
+export type UpdateProfileRequest = ApiRequestBody<"/users/me/profile", "patch">
+export type UpdateProfileResponse = ApiResponse<"/users/me/profile", "patch">
