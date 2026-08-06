@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation"
 import type { Area, Point } from "react-easy-crop"
 import { toast } from "sonner"
 
-import { ZOOM_DEFAULT } from "./constants"
+import { deleteAvatar } from "../api/delete-avatar"
 import { uploadAvatar } from "../api/upload-avatar"
 import { getCroppedImg } from "../lib/get-cropped-img"
+import { ZOOM_DEFAULT } from "./constants"
 
 export const useChangeAvatar = () => {
   const router = useRouter()
@@ -19,6 +20,7 @@ export const useChangeAvatar = () => {
   const [zoom, setZoom] = useState(ZOOM_DEFAULT)
   const [croppedArea, setCroppedArea] = useState<Area | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const resetState = useCallback(() => {
     setPreviewUrl((current) => {
@@ -80,6 +82,28 @@ export const useChangeAvatar = () => {
     }
   }, [croppedArea, previewUrl, resetState, router])
 
+  const onDelete = useCallback(async () => {
+    if (isDeleting || isSaving) return
+
+    setIsDeleting(true)
+    try {
+      const response = await deleteAvatar()
+
+      if (!response.success) {
+        toast.error(response.message || "A apărut o eroare la ștergerea avatarului.")
+        return
+      }
+
+      toast.success("Avatarul a fost șters cu succes!")
+      resetState()
+      router.refresh()
+    } catch {
+      toast.error("A apărut o eroare la ștergerea avatarului.")
+    } finally {
+      setIsDeleting(false)
+    }
+  }, [isDeleting, isSaving, resetState, router])
+
   const openFilePicker = useCallback(() => {
     inputRef.current?.click()
   }, [])
@@ -91,6 +115,7 @@ export const useChangeAvatar = () => {
     zoom,
     croppedArea,
     isSaving,
+    isDeleting,
     inputRef,
     setCrop,
     setZoom,
@@ -98,6 +123,7 @@ export const useChangeAvatar = () => {
     onFileChange,
     onCancel,
     onSave,
+    onDelete,
     openFilePicker,
     resetState,
   }

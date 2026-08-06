@@ -19,6 +19,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
     zoom,
     croppedArea,
     isSaving,
+    isDeleting,
     inputRef,
     setCrop,
     setZoom,
@@ -26,6 +27,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
     onFileChange,
     onCancel,
     onSave,
+    onDelete,
     openFilePicker,
     resetState,
   } = useChangeAvatar()
@@ -51,7 +53,13 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           onChange={onFileChange}
         />
 
-        <Button type="button" size="sm" className="h-8 max-w-max gap-1.5" onClick={openFilePicker}>
+        <Button
+          type="button"
+          size="sm"
+          className="h-8 max-w-max gap-1.5"
+          onClick={openFilePicker}
+          disabled={isSaving || isDeleting}
+        >
           <Upload data-icon="inline-start" />
           Alege fișier
         </Button>
@@ -65,9 +73,10 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           variant="outline"
           size="sm"
           className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive max-w-max"
-          disabled
+          onClick={onDelete}
+          disabled={!avatarUrl || isSaving || isDeleting}
         >
-          Șterge avatarul
+          {isDeleting ? "Se șterge..." : "Șterge avatarul"}
         </Button>
       </div>
 
