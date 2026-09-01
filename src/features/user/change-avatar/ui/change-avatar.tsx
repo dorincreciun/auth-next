@@ -4,15 +4,17 @@ import { Upload } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@shared/ui/avatar"
 import { Button } from "@shared/ui/button"
+import { LockNotice } from "@shared/ui/lock-notice"
 
 import { AvatarCropDialog } from "./avatar-crop-dialog"
 import { useChangeAvatar } from "../model/use-change-avatar"
 
 type ChangeAvatarProps = {
   avatarUrl?: string | null
+  isVerified: boolean
 }
 
-export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
+export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
   const {
     previewUrl,
     crop,
@@ -50,6 +52,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           accept="image/png,image/jpeg"
           className="sr-only"
           tabIndex={-1}
+          disabled={!isVerified || isSaving || isDeleting}
           onChange={onFileChange}
         />
 
@@ -58,7 +61,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           size="sm"
           className="h-8 max-w-max gap-1.5"
           onClick={openFilePicker}
-          disabled={isSaving || isDeleting}
+          disabled={!isVerified || isSaving || isDeleting}
         >
           <Upload data-icon="inline-start" />
           Alege fișier
@@ -74,10 +77,14 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
           size="sm"
           className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive max-w-max"
           onClick={onDelete}
-          disabled={!avatarUrl || isSaving || isDeleting}
+          disabled={!isVerified || !avatarUrl || isSaving || isDeleting}
         >
           {isDeleting ? "Se șterge..." : "Șterge avatarul"}
         </Button>
+
+        {!isVerified ? (
+          <LockNotice>Încărcarea și ștergerea avatarului cer un email confirmat.</LockNotice>
+        ) : null}
       </div>
 
       <AvatarCropDialog

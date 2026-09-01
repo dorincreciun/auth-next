@@ -2,10 +2,9 @@
 
 import { Settings } from "lucide-react"
 
-import { type User, UserAvatar } from "@entities/user"
+import { type User, UserAvatar, VerificationBadge } from "@entities/user"
 import { LogoutButton } from "@features/auth/logout"
 
-import { ActiveProfileBadge } from "./active-profile-badge"
 import { ProfileNav } from "./profile-nav"
 
 type ProfileSidebarProps = {
@@ -39,7 +38,7 @@ export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
           <div className="min-w-0 flex-1">
             <p className="text-foreground truncate text-sm font-medium">{user.email}</p>
           </div>
-          {user.isVerified ? <ActiveProfileBadge /> : null}
+          <VerificationBadge isVerified={user.isVerified} compact />
         </div>
 
         <LogoutButton />

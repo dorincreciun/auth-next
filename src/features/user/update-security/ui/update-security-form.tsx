@@ -5,14 +5,19 @@ import { EmailField } from "./email-field"
 import { PasswordFields } from "./password-fields"
 import { TwoFactorField } from "./two-factor-field"
 
-export const UpdateSecurityForm = () => {
+type UpdateSecurityFormProps = {
+  email: string
+  isVerified: boolean
+}
+
+export const UpdateSecurityForm = ({ email, isVerified }: UpdateSecurityFormProps) => {
   return (
     <form className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-10">
       <Section>
         <SectionTitle>Email</SectionTitle>
         <SectionDescription>Adresa folosită pentru autentificare și notificări.</SectionDescription>
         <SectionContent>
-          <EmailField />
+          <EmailField email={email} isVerified={isVerified} />
         </SectionContent>
       </Section>
 

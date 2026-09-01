@@ -10,9 +10,10 @@ import type { UpdateProfileRequest } from "../model/types"
 type PersonalFieldsProps = {
   register: UseFormRegister<UpdateProfileRequest>
   errors: FieldErrors<UpdateProfileRequest>
+  disabled?: boolean
 }
 
-export const PersonalFields = ({ register, errors }: PersonalFieldsProps) => {
+export const PersonalFields = ({ register, errors, disabled }: PersonalFieldsProps) => {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field data-invalid={!!errors.firstName}>
@@ -22,6 +23,7 @@ export const PersonalFields = ({ register, errors }: PersonalFieldsProps) => {
           id="firstName"
           autoComplete="given-name"
           placeholder="Prenume"
+          disabled={disabled}
           aria-invalid={!!errors.firstName}
         />
         <FieldDescription>Numele afișat în contul tău.</FieldDescription>
@@ -35,6 +37,7 @@ export const PersonalFields = ({ register, errors }: PersonalFieldsProps) => {
           id="lastName"
           autoComplete="family-name"
           placeholder="Nume"
+          disabled={disabled}
           aria-invalid={!!errors.lastName}
         />
         <FieldDescription>Numele de familie asociat contului.</FieldDescription>

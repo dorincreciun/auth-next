@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { getMe } from "@entities/user/server"
+import { VerifyEmailCallout } from "@features/auth/verify-email"
 import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
 import { Card, CardContent, CardFooter, CardHeader } from "@shared/ui/card"
 import { Breadcrumb } from "@widgets/breadcrumb"
@@ -42,7 +43,16 @@ export default async function ProfileLayout({ children }: ProfileLayoutProps) {
           <CardHeader className="shrink-0 border-b border-white/10 py-4">
             <Breadcrumb />
           </CardHeader>
-          <CardContent className="min-h-0 flex-1 overflow-y-auto py-6">{children}</CardContent>
+          <CardContent className="min-h-0 flex-1 overflow-y-auto py-6">
+            {user.isVerified ? (
+              children
+            ) : (
+              <div className="flex flex-col gap-8">
+                <VerifyEmailCallout email={user.email} />
+                {children}
+              </div>
+            )}
+          </CardContent>
           <CardFooter className="mt-auto shrink-0 border-0 bg-transparent p-0">
             <Footer />
           </CardFooter>

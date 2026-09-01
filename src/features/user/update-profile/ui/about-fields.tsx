@@ -10,9 +10,10 @@ import type { UpdateProfileRequest } from "../model/types"
 type AboutFieldsProps = {
   register: UseFormRegister<UpdateProfileRequest>
   errors: FieldErrors<UpdateProfileRequest>
+  disabled?: boolean
 }
 
-export const AboutFields = ({ register, errors }: AboutFieldsProps) => {
+export const AboutFields = ({ register, errors, disabled }: AboutFieldsProps) => {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field data-invalid={!!errors.location}>
@@ -21,6 +22,7 @@ export const AboutFields = ({ register, errors }: AboutFieldsProps) => {
           {...register("location")}
           id="location"
           placeholder="Oraș / țară"
+          disabled={disabled}
           aria-invalid={!!errors.location}
         />
         <FieldDescription>Orașul în care locuiești sau lucrezi.</FieldDescription>
@@ -33,6 +35,7 @@ export const AboutFields = ({ register, errors }: AboutFieldsProps) => {
           {...register("jobTitle")}
           id="jobTitle"
           placeholder="Rolul tău"
+          disabled={disabled}
           aria-invalid={!!errors.jobTitle}
         />
         <FieldDescription>Rolul sau poziția ta profesională.</FieldDescription>
@@ -45,8 +48,9 @@ export const AboutFields = ({ register, errors }: AboutFieldsProps) => {
           {...register("bio")}
           id="bio"
           placeholder="Scrie câteva rânduri despre tine..."
+          disabled={disabled}
           aria-invalid={!!errors.bio}
-          className="text-foreground placeholder:text-muted-foreground focus-visible:border-primary/60 focus-visible:ring-primary/25 min-h-28 w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm transition-colors outline-none focus-visible:ring-3"
+          className="text-foreground placeholder:text-muted-foreground focus-visible:border-primary/60 focus-visible:ring-primary/25 min-h-28 w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm transition-colors outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
         />
         <FieldDescription>O descriere scurtă pe care o vezi în profilul tău.</FieldDescription>
         <FieldError errors={[errors.bio]} />

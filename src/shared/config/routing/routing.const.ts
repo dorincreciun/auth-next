@@ -21,7 +21,7 @@ export const APP_ROUTES: Record<string, RouteOptions> = {
   },
   VERIFY_EMAIL: {
     path: "/verify-email",
-    access: "public",
+    access: "private",
   },
   RESET_PASSWORD: {
     path: "/reset-password",

@@ -3,6 +3,7 @@
 import type { UserProfile } from "@entities/user"
 import { Button } from "@shared/ui/button"
 import { Field, FieldError } from "@shared/ui/field"
+import { LockNotice } from "@shared/ui/lock-notice"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 
 import { AboutFields } from "./about-fields"
@@ -11,9 +12,10 @@ import { useUpdateProfile } from "../model/use-update-profile"
 
 type UpdateProfileFormProps = {
   profile: UserProfile | null
+  isVerified: boolean
 }
 
-export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
+export const UpdateProfileForm = ({ profile, isVerified }: UpdateProfileFormProps) => {
   const { register, handleFormSubmit, formState } = useUpdateProfile({
     defaultValues: {
       firstName: profile?.firstName ?? "",
@@ -24,6 +26,7 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
     },
   })
   const { errors, isSubmitting, isDirty } = formState
+  const canSave = isVerified && isDirty && !isSubmitting
 
   return (
     <form
@@ -35,7 +38,7 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
         <SectionTitle>Informații personale</SectionTitle>
         <SectionDescription>Actualizează datele afișate în contul tău.</SectionDescription>
         <SectionContent>
-          <PersonalFields register={register} errors={errors} />
+          <PersonalFields register={register} errors={errors} disabled={!isVerified} />
         </SectionContent>
       </Section>
 
@@ -43,7 +46,7 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
         <SectionTitle>Despre tine</SectionTitle>
         <SectionDescription>Locație, job title și o biografie scurtă.</SectionDescription>
         <SectionContent>
-          <AboutFields register={register} errors={errors} />
+          <AboutFields register={register} errors={errors} disabled={!isVerified} />
         </SectionContent>
       </Section>
 
@@ -53,10 +56,18 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
         </Field>
       )}
 
-      <div className="flex justify-end">
-        <Button type="submit" disabled={!isDirty || isSubmitting}>
-          {isSubmitting ? "Se salvează…" : "Salvează modificările"}
-        </Button>
+      <div className="flex flex-col gap-3">
+        {!isVerified ? (
+          <LockNotice>
+            Câmpurile sunt blocate până confirmi emailul. Datele deja salvate rămân vizibile.
+          </LockNotice>
+        ) : null}
+
+        <div className="flex justify-end">
+          <Button type="submit" disabled={!canSave}>
+            {isSubmitting ? "Se salvează…" : "Salvează modificările"}
+          </Button>
+        </div>
       </div>
     </form>
   )
