@@ -2,7 +2,53 @@ import { type NextRequest, NextResponse } from "next/server"
 
 import { APP_ROUTES, getRouteAccessByPathname, getRoutePath } from "@shared/config"
 
-export function proxy(request: NextRequest) {
+/**
+ * Cookie-ul poate exista, dar sesiunea pe server e expirată/invalidă.
+ * Fără validare, guest-only redirectează la /profile, iar pagina (getMe → 401)
+ * redirectează înapoi la /login → buclă 307 infinită.
+ */
+async function isSessionValid(request: NextRequest): Promise<boolean> {
+  const apiUrl = process.env.API_URL
+  if (!apiUrl) {
+    return false
+  }
+
+  try {
+    const response = await fetch(`${apiUrl}/auth/me`, {
+      headers: {
+        cookie: request.headers.get("cookie") ?? "",
+      },
+      cache: "no-store",
+    })
+
+    return response.ok
+  } catch {
+    return false
+  }
+}
+
+function clearSessionCookie(
+  response: NextResponse,
+  sessionName: string,
+  hostname: string,
+) {
+  const expired = {
+    name: sessionName,
+    value: "",
+    path: "/",
+    expires: new Date(0),
+    httpOnly: true,
+    sameSite: "lax" as const,
+  }
+
+  // Host-only + (dacă e cazul) Domain=hostname — backend-ul setează Domain=localhost.
+  response.cookies.set(expired)
+  if (hostname === "localhost" || hostname.includes(".")) {
+    response.cookies.set({ ...expired, domain: hostname })
+  }
+}
+
+export async function proxy(request: NextRequest) {
   const sessionName = process.env.SESSION_NAME
   const session = sessionName ? request.cookies.get(sessionName) : undefined
 
@@ -19,10 +65,17 @@ export function proxy(request: NextRequest) {
 
   /**
    * Ruta e doar pentru vizitatori (guest-only), dar userul are deja
-   * o sesiune activa -> redirect catre zona privata
+   * o sesiune activa -> redirect catre zona privata.
+   * Dacă cookie-ul e mort, îl ștergem și lăsăm pagina guest să se randeze.
    */
-  if (access === "guest-only" && session) {
-    return NextResponse.redirect(new URL(APP_ROUTES.PROFILE.path, request.url))
+  if (access === "guest-only" && session && sessionName) {
+    if (await isSessionValid(request)) {
+      return NextResponse.redirect(new URL(APP_ROUTES.PROFILE.path, request.url))
+    }
+
+    const response = NextResponse.next()
+    clearSessionCookie(response, sessionName, request.nextUrl.hostname)
+    return response
   }
 
   /**
