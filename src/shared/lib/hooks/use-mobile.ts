@@ -1,24 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 const MOBILE_BREAKPOINT = 768
+const MOBILE_QUERY = `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
 
-export const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined)
+const subscribe = (onStoreChange: () => void) => {
+  const mediaQuery = window.matchMedia(MOBILE_QUERY)
+  mediaQuery.addEventListener("change", onStoreChange)
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
-
-    mediaQuery.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-
-    return () => mediaQuery.removeEventListener("change", onChange)
-  }, [])
-
-  return !!isMobile
+  return () => mediaQuery.removeEventListener("change", onStoreChange)
 }
+
+const getSnapshot = () => window.matchMedia(MOBILE_QUERY).matches
+
+/** Pe server presupunem desktop, ca prima randare de pe client să nu difere. */
+const getServerSnapshot = () => false
+
+export const useIsMobile = () => useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)

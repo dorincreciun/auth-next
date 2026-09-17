@@ -1,5 +1,8 @@
-import { SettingsSecurityPage } from "@pages/profile-security"
+import type { Metadata } from "next"
 
-export default function SecurityPage() {
-  return <SettingsSecurityPage />
+export const metadata: Metadata = {
+  title: "Securitate",
+  description: "Email, parolă și opțiuni de protecție a contului.",
 }
+
+export { ProfileSecurityPage as default } from "@pages/profile-security"

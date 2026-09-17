@@ -3,12 +3,14 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useRouter, useSearchParams} from "next/navigation";
 import {toast} from "sonner";
+
+import {APP_ROUTES, getRoutePath} from "@shared/config";
 import {useForm} from "@shared/lib/hooks";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
-import {resetPassword} from "../api/reset-password";
-import {RESET_PASSWORD_MESSAGES} from "../config/messages";
+
 import {resetPasswordSchema} from "./schema";
 import type {ResetPasswordRequest, ResetPasswordResponse} from "./types";
+import {resetPassword} from "../api/reset-password";
+import {RESET_PASSWORD_MESSAGES} from "../config/messages";
 
 export const useResetPasswordForm = () => {
   const router = useRouter();

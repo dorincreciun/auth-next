@@ -1,5 +1,1 @@
-import { NotFound } from "@pages/not-found"
-
-export default function NotFoundPage() {
-    return <NotFound />
-}
+export { NotFoundPage as default } from "@pages/not-found"

@@ -1,1 +1,1 @@
-export * from './ui/devices'
+export { ProfileDevicesPage } from "./ui/profile-devices-page"

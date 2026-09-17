@@ -1,9 +1,9 @@
 import { type RouteOptions } from "./routing.type"
 
-export const APP_ROUTES: Record<string, RouteOptions> = {
+export const APP_ROUTES = {
   ROOT: {
     path: "/",
-    access: "public",
+    access: "private",
   },
 
   /* Auth routes */
@@ -43,6 +43,7 @@ export const APP_ROUTES: Record<string, RouteOptions> = {
     path: "/profile/devices",
     access: "private",
   },
-} as const
+} as const satisfies Record<string, RouteOptions>
 
-export type AppRoutes = (typeof APP_ROUTES)[keyof typeof APP_ROUTES]
+export type AppRouteName = keyof typeof APP_ROUTES
+export type AppRoute = (typeof APP_ROUTES)[AppRouteName]

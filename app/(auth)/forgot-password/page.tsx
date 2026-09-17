@@ -1,18 +1,8 @@
-import { Card , CardHeader, CardTitle, CardDescription, CardContent} from "@shared/ui/card";
-import {ForgotPasswordForm} from "@features/auth/forgot-password";
+import type { Metadata } from "next"
 
-export default function ForgotPassword() {
-    return (
-        <Card className="w-full">
-            <CardHeader>
-                <CardTitle>Resetare parolă</CardTitle>
-                <CardDescription>
-                    Introdu adresa de email asociată contului tău.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <ForgotPasswordForm />
-            </CardContent>
-        </Card>
-    )
+export const metadata: Metadata = {
+  title: "Resetare parolă",
+  description: "Solicită un cod de resetare a parolei pe email.",
 }
+
+export { ForgotPasswordPage as default } from "@pages/forgot-password"

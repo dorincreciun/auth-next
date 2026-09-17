@@ -1,7 +1,7 @@
 import { MailWarning } from "lucide-react"
 import Link from "next/link"
 
-import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 import { Button } from "@shared/ui/button"
 
 type VerifyEmailCalloutProps = {

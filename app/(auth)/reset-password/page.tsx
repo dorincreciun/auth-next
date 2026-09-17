@@ -1,27 +1,8 @@
-import {Suspense} from "react";
-import {ResetPasswordForm} from "@features/auth/reset-password";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@shared/ui/card";
+import type { Metadata } from "next"
 
-export default function ResetPasswordPage() {
-  return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Parolă nouă</CardTitle>
-        <CardDescription>
-          Introdu codul primit pe email și alege o parolă nouă.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Suspense fallback={null}>
-          <ResetPasswordForm />
-        </Suspense>
-      </CardContent>
-    </Card>
-  );
+export const metadata: Metadata = {
+  title: "Parolă nouă",
+  description: "Confirmă codul primit pe email și alege o parolă nouă.",
 }
+
+export { ResetPasswordPage as default } from "@pages/reset-password"

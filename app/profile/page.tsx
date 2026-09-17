@@ -1,5 +1,8 @@
-import { DefaultProfilePage } from "@pages/profile"
+import type { Metadata } from "next"
 
-export default function ProfilePage() {
-  return <DefaultProfilePage />
+export const metadata: Metadata = {
+  title: "Profil",
+  description: "Datele publice ale contului tău.",
 }
+
+export { ProfilePage as default } from "@pages/profile"

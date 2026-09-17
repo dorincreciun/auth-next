@@ -1,11 +1,12 @@
 "use client"
 
 import * as React from "react"
+
+import { XIcon } from "lucide-react"
 import { Dialog as DialogPrimitive } from "radix-ui"
 
 import { cn } from "@shared/lib/utils"
 import { Button } from "@shared/ui/button"
-import { XIcon } from "lucide-react"
 
 function Dialog({
   ...props
@@ -67,7 +68,7 @@ function DialogContent({
         {...props}
       >
         {children}
-        {showCloseButton && (
+        {!!showCloseButton && (
           <DialogPrimitive.Close data-slot="dialog-close" asChild>
             <Button
               variant="ghost"
@@ -112,7 +113,7 @@ function DialogFooter({
       {...props}
     >
       {children}
-      {showCloseButton && (
+      {!!showCloseButton && (
         <DialogPrimitive.Close asChild>
           <Button variant="outline">Close</Button>
         </DialogPrimitive.Close>

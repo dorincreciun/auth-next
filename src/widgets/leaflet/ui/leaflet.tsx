@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic"
 
-import type { LeafletCanvasProps } from "../model/types"
 import { LeafletSkeleton } from "./leaflet-skeleton"
+import type { LeafletCanvasProps } from "../model/types"
 
 const DynamicLeaflet = dynamic(
   () => import("./leaflet-canvas").then((mod) => mod.LeafletCanvas),

@@ -1,4 +1,5 @@
 import {client} from "@shared/api";
+
 import type {RegisterRequest, RegisterResponse} from "../model/types";
 
 export const register = async (

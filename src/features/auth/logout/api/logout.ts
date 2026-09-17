@@ -1,4 +1,5 @@
 import {client} from "@shared/api";
+
 import type {LogoutResponse} from "../model/types";
 
 export const logout = async (): Promise<LogoutResponse> => {

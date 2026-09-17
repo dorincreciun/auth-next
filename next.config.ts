@@ -3,7 +3,12 @@ import type { NextConfig } from "next"
 import { env } from "@shared/config/env.config"
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /**
+   * Next generează AGENTS.md/CLAUDE.md la fiecare `next dev`. Regulile pentru
+   * agenți sunt ținute versionat în `.cursor/skills`, deci fișierele generate ar
+   * fi doar zgomot necontrolat în repo.
+   */
+  agentRules: false,
   async rewrites() {
     return [
       {

@@ -1,16 +1,8 @@
-import {LoginForm} from "@features/auth/login";
-import { Card , CardHeader, CardTitle, CardDescription, CardContent} from "@shared/ui/card";
+import type { Metadata } from "next"
 
-export default function LoginPage() {
-    return (
-        <Card className="w-full">
-            <CardHeader>
-                <CardTitle>Autentificare</CardTitle>
-                <CardDescription>Introdu datele contului pentru a continua.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <LoginForm />
-            </CardContent>
-        </Card>
-    )
+export const metadata: Metadata = {
+  title: "Autentificare",
+  description: "Autentifică-te în contul tău.",
 }
+
+export { LoginPage as default } from "@pages/login"

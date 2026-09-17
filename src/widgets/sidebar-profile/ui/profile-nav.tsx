@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { getRoutePath } from "@shared/config/routing"
+import { getRoutePath } from "@shared/config"
 import { cn } from "@shared/lib/utils"
 
 import { profileNavItems } from "../model/nav-items"

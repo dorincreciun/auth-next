@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+
 import { Popup } from "react-leaflet"
 
 type LeafletPopupProps = {

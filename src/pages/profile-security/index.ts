@@ -1,1 +1,1 @@
-export { SettingsSecurityPage } from "./ui/security"
+export { ProfileSecurityPage } from "./ui/profile-security-page"

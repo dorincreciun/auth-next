@@ -1,9 +1,12 @@
 "use client";
 
 import {useTransition} from "react";
+
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
+
+import {APP_ROUTES, getRoutePath} from "@shared/config";
+
 import {logout as logoutRequest} from "../api/logout";
 import {LOGOUT_MESSAGES} from "../config/messages";
 

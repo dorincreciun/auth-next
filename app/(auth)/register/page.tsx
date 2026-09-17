@@ -1,16 +1,8 @@
-import {RegisterForm} from "@features/auth/register";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@shared/ui/card";
+import type { Metadata } from "next"
 
-export default function RegisterPage() {
-  return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Înregistrare</CardTitle>
-        <CardDescription>Creează un cont nou pentru a continua.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <RegisterForm />
-      </CardContent>
-    </Card>
-  );
+export const metadata: Metadata = {
+  title: "Înregistrare",
+  description: "Creează un cont nou.",
 }
+
+export { RegisterPage as default } from "@pages/register"

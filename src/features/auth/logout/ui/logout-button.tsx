@@ -1,6 +1,7 @@
 "use client";
 
 import {LogOut} from "lucide-react";
+
 import {Button} from "@shared/ui/button";
 import {
   Dialog,
@@ -12,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@shared/ui/dialog";
+
 import {useLogout} from "../model/use-logout";
 
 export const LogoutButton = () => {

@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "test:ts": "tsc --noEmit",
-    "generate:api": "openapi-typescript http://localhost:5000/swagger/json -o ./src/shared/api/v1.d.ts"
+    "generate:api": "node ./scripts/generate-api.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.5.7",

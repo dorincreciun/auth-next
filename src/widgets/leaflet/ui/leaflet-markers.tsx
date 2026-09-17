@@ -1,8 +1,8 @@
 import { Marker } from "react-leaflet"
 
+import { LeafletPopup } from "./leaflet-popup"
 import { markerIcon } from "../lib/marker-icon"
 import type { LocationProps } from "../model/types"
-import { LeafletPopup } from "./leaflet-popup"
 
 type LeafletMarkersProps = {
   locations: LocationProps[]

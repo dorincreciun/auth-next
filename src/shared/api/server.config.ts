@@ -1,8 +1,11 @@
 import "server-only";
+import {cache} from "react";
+
 import {cookies} from "next/headers";
 import createClient from "openapi-fetch";
-import {cache} from "react";
+
 import {env} from "@shared/config/env.config";
+
 import type {paths} from "./v1";
 
 export const server = cache(async () => {

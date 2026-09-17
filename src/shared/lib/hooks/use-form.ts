@@ -2,11 +2,12 @@
 
 import {
   type FieldValues,
-  Path,
-  SubmitHandler,
+  type Path,
+  type SubmitHandler,
   useForm as useFormHook,
   type UseFormProps,
 } from "react-hook-form";
+
 import type {ApiResult, ErrorResponse} from "@shared/api";
 
 type SuccessDataOf<TResponse extends ApiResult> = Extract<

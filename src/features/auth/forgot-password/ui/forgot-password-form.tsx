@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+
+import {APP_ROUTES, getRoutePath} from "@shared/config";
 import {Button} from "@shared/ui/button";
 import {
   Field,
@@ -10,7 +12,7 @@ import {
   FieldLabel,
 } from "@shared/ui/field";
 import {Input} from "@shared/ui/input";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
+
 import {useForgotPasswordForm} from "../model/use-forgot-password-form";
 
 export const ForgotPasswordForm = () => {

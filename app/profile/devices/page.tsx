@@ -1,5 +1,8 @@
-import { SettingsDevicesPage } from "@pages/profile-devices"
+import type { Metadata } from "next"
 
-export default function Page() {
-  return <SettingsDevicesPage />
+export const metadata: Metadata = {
+  title: "Dispozitive",
+  description: "Sesiunile active și locațiile lor.",
 }
+
+export { ProfileDevicesPage as default } from "@pages/profile-devices"

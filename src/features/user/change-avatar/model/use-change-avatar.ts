@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation"
 import type { Area, Point } from "react-easy-crop"
 import { toast } from "sonner"
 
+import { ZOOM_DEFAULT } from "./constants"
 import { deleteAvatar } from "../api/delete-avatar"
 import { uploadAvatar } from "../api/upload-avatar"
 import { getCroppedImg } from "../lib/get-cropped-img"
-import { ZOOM_DEFAULT } from "./constants"
 
 export const useChangeAvatar = () => {
   const router = useRouter()

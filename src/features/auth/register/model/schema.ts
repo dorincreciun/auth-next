@@ -1,4 +1,5 @@
 import {z} from "zod";
+
 import type {RegisterRequest} from "./types";
 
 export const registerSchema = z.object({

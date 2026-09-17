@@ -1,5 +1,6 @@
-import type { LatLngExpression, MapOptions } from "leaflet"
 import type { ReactNode } from "react"
+
+import type { LatLngExpression, MapOptions } from "leaflet"
 
 export type LocationProps = {
   position: [number, number]

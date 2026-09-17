@@ -1,5 +1,7 @@
-import { Default } from "@pages/default"
+import { redirect } from "next/navigation"
+
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 
 export default function Home() {
-    return <Default />
+  redirect(getRoutePath(APP_ROUTES.PROFILE))
 }

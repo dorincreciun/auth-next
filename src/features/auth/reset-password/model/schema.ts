@@ -1,4 +1,5 @@
 import {z} from "zod";
+
 import type {ResetPasswordRequest} from "./types";
 
 export const resetPasswordSchema = z.object({

@@ -2,10 +2,10 @@ import { MapContainer } from "react-leaflet"
 
 import { cn } from "@shared/lib/utils"
 
-import { CANVAS_CONFIG } from "../config/leaflet-config"
-import type { LeafletCanvasProps } from "../model/types"
 import { LeafletMarkers } from "./leaflet-markers"
 import { LeafletTile } from "./leaflet-tile"
+import { CANVAS_CONFIG } from "../config/leaflet-config"
+import type { LeafletCanvasProps } from "../model/types"
 
 import "leaflet/dist/leaflet.css"
 import "./leaflet-dark.css"

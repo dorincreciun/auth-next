@@ -5,7 +5,7 @@ import { redirect } from "next/navigation"
 
 import { getMe } from "@entities/user/server"
 import { VerifyEmailCallout } from "@features/auth/verify-email"
-import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 import { Card, CardContent, CardFooter, CardHeader } from "@shared/ui/card"
 import { Breadcrumb } from "@widgets/breadcrumb"
 import { Footer } from "@widgets/footer"

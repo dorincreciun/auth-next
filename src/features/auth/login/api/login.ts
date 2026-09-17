@@ -1,4 +1,5 @@
 import {client} from "@shared/api";
+
 import type {LoginRequest, LoginResponse} from "../model/types";
 
 export const login = async (values: LoginRequest): Promise<LoginResponse> => {

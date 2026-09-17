@@ -2,12 +2,12 @@ import { redirect } from "next/navigation"
 
 import { getMe } from "@entities/user/server"
 import { ChangeAvatar } from "@features/user/change-avatar"
-import { DeleteAccountForm } from "@features/user/delete-account"
 import { UpdateProfileForm } from "@features/user/update-profile"
-import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
-import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 
-export const DefaultProfilePage = async () => {
+import { DeleteAccountSection } from "./delete-account-section"
+
+export const ProfilePage = async () => {
   const user = await getMe()
 
   if (!user) {
@@ -22,13 +22,7 @@ export const DefaultProfilePage = async () => {
 
       <UpdateProfileForm profile={profile} isVerified={user.isVerified} />
 
-      <Section variant="danger">
-        <SectionTitle>Zona periculoasă</SectionTitle>
-        <SectionDescription>Acțiuni ireversibile asupra contului.</SectionDescription>
-        <SectionContent>
-          <DeleteAccountForm />
-        </SectionContent>
-      </Section>
+      <DeleteAccountSection />
     </div>
   )
 }

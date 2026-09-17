@@ -1,5 +1,3 @@
-"use client"
-
 import { Settings } from "lucide-react"
 
 import { type User, UserAvatar, VerificationBadge } from "@entities/user"

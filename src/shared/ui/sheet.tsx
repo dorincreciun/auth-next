@@ -1,11 +1,12 @@
 "use client"
 
 import * as React from "react"
+
+import { XIcon } from "lucide-react"
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 import { cn } from "@shared/lib/utils"
 import { Button } from "@shared/ui/button"
-import { XIcon } from "lucide-react"
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
@@ -68,7 +69,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        {showCloseButton && (
+        {!!showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>
             <Button
               variant="ghost"

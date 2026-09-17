@@ -4,7 +4,7 @@ import { REGEXP_ONLY_DIGITS } from "input-otp"
 import Link from "next/link"
 import { Controller } from "react-hook-form"
 
-import { APP_ROUTES, getRoutePath } from "@shared/config/routing"
+import { APP_ROUTES, getRoutePath } from "@shared/config"
 import { useTokenCountdown } from "@shared/lib/hooks"
 import { Button } from "@shared/ui/button"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@shared/ui/field"

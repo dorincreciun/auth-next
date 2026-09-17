@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-import { APP_ROUTES, getRouteAccessByPathname, getRoutePath } from "@shared/config/routing"
+import { APP_ROUTES, getRouteAccessByPathname, getRoutePath } from "@shared/config"
 
 export function proxy(request: NextRequest) {
   const sessionName = process.env.SESSION_NAME

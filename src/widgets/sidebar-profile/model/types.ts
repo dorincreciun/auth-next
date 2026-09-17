@@ -1,9 +1,9 @@
 import type { LucideIcon } from "lucide-react"
 
-import type { AppRoutes } from "@shared/config/routing"
+import type { AppRoute } from "@shared/config"
 
 export type ProfileNavItem = {
   label: string
   icon: LucideIcon
-  route: AppRoutes
+  route: AppRoute
 }

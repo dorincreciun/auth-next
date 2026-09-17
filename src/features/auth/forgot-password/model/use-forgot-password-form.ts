@@ -3,12 +3,14 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
+
+import {APP_ROUTES, getRoutePath} from "@shared/config";
 import {useForm} from "@shared/lib/hooks";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
-import {forgotPassword} from "../api/forgot-password";
-import {FORGOT_PASSWORD_MESSAGES} from "../config/messages";
+
 import {forgotPasswordSchema} from "./schema";
 import type {ForgotPasswordRequest, ForgotPasswordResponse,} from "./types";
+import {forgotPassword} from "../api/forgot-password";
+import {FORGOT_PASSWORD_MESSAGES} from "../config/messages";
 
 export const useForgotPasswordForm = () => {
     const router = useRouter();

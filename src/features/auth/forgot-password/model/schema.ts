@@ -1,4 +1,5 @@
 import {z} from "zod";
+
 import type {ForgotPasswordRequest} from "./types";
 
 export const forgotPasswordSchema = z.object({

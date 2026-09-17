@@ -1,11 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import {useEffect} from "react";
-import {Controller} from "react-hook-form";
-import {useRouter} from "next/navigation";
-import {toast} from "sonner";
+
 import {REGEXP_ONLY_DIGITS} from "input-otp";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import {Controller} from "react-hook-form";
+import {toast} from "sonner";
+
+import {APP_ROUTES, getRoutePath} from "@shared/config";
+import {useTokenCountdown} from "@shared/lib/hooks";
 import {Button} from "@shared/ui/button";
 import {
   Field,
@@ -21,10 +25,9 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@shared/ui/input-otp";
-import {APP_ROUTES, getRoutePath} from "@shared/config/routing";
-import {useTokenCountdown} from "@shared/lib/hooks";
-import {useResetPasswordForm} from "../model/use-reset-password-form";
+
 import {RESET_PASSWORD_MESSAGES} from "../config/messages";
+import {useResetPasswordForm} from "../model/use-reset-password-form";
 
 export const ResetPasswordForm = () => {
   const router = useRouter();
