@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/users/upload/avatar": {
+    "/users/me/avatar": {
         parameters: {
             query?: never;
             header?: never;
@@ -15,30 +15,11 @@ export interface paths {
         put?: never;
         /**
          * Încarcă avatarul utilizatorului autentificat
-         * @description Acceptă un fișier imagine (`avatarFile`) via `multipart/form-data`. Tipuri permise: JPEG, PNG, WebP, GIF. Dimensiune maximă: 2 MB. Returnează profilul public actualizat (`UserProfileDto`).
+         * @description Acceptă un fișier imagine (`avatarFile`) via `multipart/form-data`. Tipurile permise și dimensiunea maximă sunt configurabile prin variabile de mediu.
          */
-        post: operations["UsersController_uploadAvatar"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/users/me/avatar": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Șterge avatarul utilizatorului autentificat
-         * @description Șterge imaginea de pe Cloudinary și golește `avatarUrl` din profil. Returnează profilul public actualizat (`UserProfileDto`).
-         */
-        delete: operations["UsersController_deleteAvatar"];
+        post: operations["UsersController_uploadAvatar_v1"];
+        /** Șterge avatarul utilizatorului autentificat */
+        delete: operations["UsersController_deleteAvatar_v1"];
         options?: never;
         head?: never;
         patch?: never;
@@ -59,12 +40,29 @@ export interface paths {
         head?: never;
         /**
          * Actualizează profilul utilizatorului autentificat
-         * @description Actualizează câmpurile din `user_profiles` pentru userul din sesiune. Returnează doar profilul public (`UserProfileDto`), fără id/userId interne. Avatarul se schimbă printr-un endpoint separat de upload.
+         * @description Actualizează câmpurile din `user_profiles` pentru userul din sesiune și returnează doar profilul public (`UserProfileDto`).
          */
-        patch: operations["UsersController_updateProfile"];
+        patch: operations["UsersController_updateProfile_v1"];
         trace?: never;
     };
-    "/file/upload": {
+    "/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Sesiunile active ale utilizatorului autentificat */
+        get: operations["SessionController_list_v1"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sessions/others": {
         parameters: {
             query?: never;
             header?: never;
@@ -73,8 +71,26 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["FileController_uploadFile"];
-        delete?: never;
+        post?: never;
+        /** Deconectează celelalte dispozitive */
+        delete: operations["SessionController_revokeOthers_v1"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sessions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Revocă o sesiune anume */
+        delete: operations["SessionController_revoke_v1"];
         options?: never;
         head?: never;
         patch?: never;
@@ -93,7 +109,7 @@ export interface paths {
          * Înregistrare utilizator nou
          * @description Creează contul, inițiază sesiunea și returnează userul public. `user.profile` este `null` aici (profilul se citește pe GET /auth/me).
          */
-        post: operations["AuthController_register"];
+        post: operations["AuthController_register_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -111,9 +127,9 @@ export interface paths {
         put?: never;
         /**
          * Autentificare cu email și parolă
-         * @description Validează credențialele, regenerază sesiunea și returnează userul public. `user.profile` este `null` aici (profilul se citește pe GET /auth/me).
+         * @description Validează credențialele, regenerează sesiunea și returnează userul public. `user.profile` este `null` aici (profilul se citește pe GET /auth/me).
          */
-        post: operations["AuthController_login"];
+        post: operations["AuthController_login_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -129,8 +145,8 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Deconectare (distruge sesiunea) */
-        post: operations["AuthController_logout"];
+        /** Deconectare (închide sesiunea curentă) */
+        post: operations["AuthController_logout_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -146,9 +162,9 @@ export interface paths {
         };
         /**
          * Profilul utilizatorului autentificat
-         * @description Returnează contul curent împreună cu profilul nested (`user.profile`). Spre deosebire de register/login, aici relația `profile` este încărcată din DB.
+         * @description Returnează contul curent împreună cu profilul nested (`user.profile`), spre deosebire de register/login unde relația nu este încărcată.
          */
-        get: operations["AuthController_getMe"];
+        get: operations["AuthController_getMe_v1"];
         put?: never;
         post?: never;
         delete?: never;
@@ -167,7 +183,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Trimite codul de verificare a emailului */
-        post: operations["AuthController_emailVerifySend"];
+        post: operations["AuthController_sendVerificationEmail_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -184,7 +200,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Confirmă emailul cu codul primit */
-        post: operations["AuthController_confirmEmail"];
+        post: operations["AuthController_confirmEmail_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -201,7 +217,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Solicită resetarea parolei */
-        post: operations["AuthController_forgotPassword"];
+        post: operations["AuthController_forgotPassword_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -218,7 +234,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Resetează parola cu codul primit pe email */
-        post: operations["AuthController_resetPassword"];
+        post: operations["AuthController_resetPassword_v1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -229,49 +245,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        UserProfileDto: {
-            /**
-             * @description Prenumele
-             * @example Ion
-             */
-            firstName: string | null;
-            /**
-             * @description Numele de familie
-             * @example Popescu
-             */
-            lastName: string | null;
-            /**
-             * @description URL-ul avatarului
-             * @example https://cdn.example.com/avatars/ion.png
-             */
-            avatarUrl: string | null;
-            /**
-             * @description Locația (oraș / țară)
-             * @example Chișinău, Moldova
-             */
-            location: string | null;
-            /**
-             * @description Titlul / funcția profesională
-             * @example Software Engineer
-             */
-            jobTitle: string | null;
-            /**
-             * @description Descriere scurtă (bio)
-             * @example Pasionat de NestJS și TypeScript.
-             */
-            bio: string | null;
-        };
-        UserProfileDataDto: {
-            /** @description Profilul public actualizat */
-            profile: components["schemas"]["UserProfileDto"];
-        };
-        UpdateUserAvatarPayloadDto: {
-            /**
-             * Format: binary
-             * @description Fișier imagine (JPEG, PNG, WebP sau GIF), maxim 2 MB
-             */
-            avatarFile: Blob;
-        };
         ErrorResponseDto: {
             /**
              * @description Indică un răspuns de eroare
@@ -316,6 +289,49 @@ export interface components {
                 timestamp?: string;
             };
         };
+        UserProfileDto: {
+            /**
+             * @description Prenumele
+             * @example Ion
+             */
+            firstName: string | null;
+            /**
+             * @description Numele de familie
+             * @example Popescu
+             */
+            lastName: string | null;
+            /**
+             * @description URL-ul avatarului
+             * @example https://cdn.example.com/avatars/ion.png
+             */
+            avatarUrl: string | null;
+            /**
+             * @description Locația (oraș / țară)
+             * @example Chișinău, Moldova
+             */
+            location: string | null;
+            /**
+             * @description Titlul / funcția profesională
+             * @example Software Engineer
+             */
+            jobTitle: string | null;
+            /**
+             * @description Descriere scurtă (bio)
+             * @example Pasionat de NestJS și TypeScript.
+             */
+            bio: string | null;
+        };
+        UserProfileDataDto: {
+            /** @description Profilul public actualizat */
+            profile: components["schemas"]["UserProfileDto"];
+        };
+        UpdateUserAvatarPayloadDto: {
+            /**
+             * Format: binary
+             * @description Fișier imagine (JPEG, PNG, WebP sau GIF), maxim 2 MB
+             */
+            avatarFile: Blob;
+        };
         UpdateUserProfilePayloadDto: {
             /**
              * @description Prenumele
@@ -342,6 +358,85 @@ export interface components {
              * @example Pasionat de NestJS și TypeScript.
              */
             bio?: string;
+        };
+        DeviceDataDto: {
+            /**
+             * @description Adresa IP de la care s-a autentificat utilizatorul
+             * @example 82.76.14.201
+             */
+            ip: string;
+            /**
+             * @description Browserul detectat din User-Agent
+             * @example Chrome
+             */
+            browser: string;
+            /**
+             * @description Versiunea browserului
+             * @example 141.0.0.0
+             */
+            browserVersion: string;
+            /**
+             * @description Sistemul de operare detectat
+             * @example Linux
+             */
+            os: string;
+            /**
+             * @description Platforma detectată
+             * @example Desktop
+             */
+            platform: string;
+            /**
+             * @description Dacă sesiunea a fost pornită de pe un dispozitiv mobil
+             * @example false
+             */
+            isMobile: boolean;
+            /**
+             * @description Dacă sesiunea a fost pornită de pe un desktop
+             * @example true
+             */
+            isDesktop: boolean;
+            /**
+             * @description Momentul autentificării (ISO)
+             * @example 2026-09-18T06:00:00.000Z
+             */
+            loggedAt: string;
+            /**
+             * @description Ultima activitate înregistrată pe sesiune (ISO)
+             * @example 2026-09-18T06:42:00.000Z
+             */
+            lastActiveAt: string;
+        };
+        ActiveSessionDto: {
+            /** @description Metadatele dispozitivului; null pentru sesiuni mai vechi, fără metadate. */
+            deviceData: components["schemas"]["DeviceDataDto"] | null;
+            /**
+             * @description Identificator public al sesiunii, folosit la revocare
+             * @example 9f2c4b7e1a83d5460bc2e7f0a1d93c58
+             */
+            id: string;
+            /**
+             * @description Secundele rămase până la expirarea sesiunii
+             * @example 2591640
+             */
+            expiresInSeconds: number;
+            /**
+             * @description `true` pentru sesiunea din care vine request-ul curent
+             * @example true
+             */
+            isCurrent: boolean;
+        };
+        ActiveSessionsDataDto: {
+            /** @description Sesiunile active, cea curentă fiind prima în listă */
+            sessions: components["schemas"]["ActiveSessionDto"][];
+        };
+        RevokedSessionsDataDto: {
+            /** @description Mesaj descriptiv pentru client */
+            message: string;
+            /**
+             * @description Numărul de sesiuni închise
+             * @example 2
+             */
+            revoked: number;
         };
         UserDto: {
             /** @description Profilul public nested. null pe login/register; populat pe GET /auth/me. */
@@ -459,7 +554,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    UsersController_uploadAvatar: {
+    UsersController_uploadAvatar_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -522,18 +617,9 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description Prea multe cereri */
-            429: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
         };
     };
-    UsersController_deleteAvatar: {
+    UsersController_deleteAvatar_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -592,18 +678,9 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description Prea multe cereri */
-            429: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
         };
     };
-    UsersController_updateProfile: {
+    UsersController_updateProfile_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -666,8 +743,51 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description Prea multe cereri */
-            429: {
+        };
+    };
+    SessionController_list_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Lista sesiunilor active */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["ActiveSessionsDataDto"];
+                    };
+                };
+            };
+            /** @description Neautentificat */
+            401: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -677,7 +797,7 @@ export interface operations {
             };
         };
     };
-    FileController_uploadFile: {
+    SessionController_revokeOthers_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -686,15 +806,114 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: {
+            /** @description Sesiunile celorlalte dispozitive au fost închise */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["RevokedSessionsDataDto"];
+                    };
+                };
+            };
+            /** @description Neautentificat */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
             };
         };
     };
-    AuthController_register: {
+    SessionController_revoke_v1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Identificatorul public al sesiunii (din GET /sessions) */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Sesiunea a fost închisă */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /**
+                         * @description Indică un răspuns de succes
+                         * @example true
+                         * @enum {boolean}
+                         */
+                        success: true;
+                        /**
+                         * @description Codul HTTP al răspunsului
+                         * @example 200
+                         */
+                        statusCode: number;
+                        /** @description Meta informații utile pentru client */
+                        meta: {
+                            /** @example /auth/login */
+                            path: string;
+                            /**
+                             * Format: date-time
+                             * @example 2026-07-27T08:00:00.000Z
+                             */
+                            timestamp: string;
+                        };
+                        data: components["schemas"]["RevokedSessionsDataDto"];
+                    };
+                };
+            };
+            /** @description Neautentificat */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Sesiune inexistentă */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    AuthController_register_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -768,7 +987,7 @@ export interface operations {
             };
         };
     };
-    AuthController_login: {
+    AuthController_login_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -842,7 +1061,7 @@ export interface operations {
             };
         };
     };
-    AuthController_logout: {
+    AuthController_logout_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -894,7 +1113,7 @@ export interface operations {
             };
         };
     };
-    AuthController_getMe: {
+    AuthController_getMe_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -946,7 +1165,7 @@ export interface operations {
             };
         };
     };
-    AuthController_emailVerifySend: {
+    AuthController_sendVerificationEmail_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -987,7 +1206,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Email deja confirmat / token încă valid */
+            /** @description Email deja confirmat / cod încă valid */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -1016,7 +1235,7 @@ export interface operations {
             };
         };
     };
-    AuthController_confirmEmail: {
+    AuthController_confirmEmail_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -1099,7 +1318,7 @@ export interface operations {
             };
         };
     };
-    AuthController_forgotPassword: {
+    AuthController_forgotPassword_v1: {
         parameters: {
             query?: never;
             header?: never;
@@ -1164,7 +1383,7 @@ export interface operations {
             };
         };
     };
-    AuthController_resetPassword: {
+    AuthController_resetPassword_v1: {
         parameters: {
             query?: never;
             header?: never;

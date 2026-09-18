@@ -72,7 +72,7 @@ export type ApiResponse<Path extends keyof paths, Method extends keyof paths[Pat
  * @example
  * ```ts
  * type LoginPayload = ApiRequestBody<"/auth/login", "post">;
- * type AvatarPayload = ApiRequestBody<"/users/upload/avatar", "post">;
+ * type AvatarPayload = ApiRequestBody<"/users/me/avatar", "post">;
  * ```
  */
 export type ApiRequestBody<Path extends keyof paths, Method extends keyof paths[Path]> =

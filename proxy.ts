@@ -13,8 +13,10 @@ async function isSessionValid(request: NextRequest): Promise<boolean> {
     return false
   }
 
+  const basePath = process.env.API_BASE_PATH ?? "/api/v1"
+
   try {
-    const response = await fetch(`${apiUrl}/auth/me`, {
+    const response = await fetch(`${apiUrl}${basePath}/auth/me`, {
       headers: {
         cookie: request.headers.get("cookie") ?? "",
       },
@@ -27,11 +29,7 @@ async function isSessionValid(request: NextRequest): Promise<boolean> {
   }
 }
 
-function clearSessionCookie(
-  response: NextResponse,
-  sessionName: string,
-  hostname: string,
-) {
+function clearSessionCookie(response: NextResponse, sessionName: string, hostname: string) {
   const expired = {
     name: sessionName,
     value: "",

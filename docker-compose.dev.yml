@@ -1,0 +1,35 @@
+# Override pentru development. Se combină cu docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# `next dev` citește API_URL la runtime (nu la build), iar sursele sunt montate
+# ca volum — modificările din editor apar imediat, fără rebuild de imagine.
+
+services:
+  web:
+    image: auth-next-web:dev
+    build:
+      target: dev
+    # Override explicit: imaginea de prod are ENTRYPOINT dumb-init + CMD node server.js.
+    # Fără astea, un `up` pe volume-urile de dev pornește server.js pe sursele montate și cade.
+    entrypoint: ["docker-entrypoint.sh"]
+    command: ["npm", "run", "dev"]
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      API_URL: ${API_URL_DOCKER:-http://api:5000}
+      API_BASE_PATH: ${API_BASE_PATH:-/api/v1}
+      SESSION_NAME: ${SESSION_NAME:-sessionId}
+      # Bind-mount-urile din Docker nu trimit întotdeauna inotify; polling e mai fiabil.
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING_INTERVAL: "500"
+    volumes:
+      - .:/app
+      - web_node_modules:/app/node_modules
+      - web_next:/app/.next
+    tty: true
+    stdin_open: true
+
+volumes:
+  web_node_modules:
+  web_next:

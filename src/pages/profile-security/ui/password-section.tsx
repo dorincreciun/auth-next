@@ -1,6 +1,5 @@
 import { RequestPasswordReset } from "@features/auth/forgot-password"
 import { LockNotice } from "@shared/ui/lock-notice"
-import { Notice } from "@shared/ui/notice"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 
 type PasswordSectionProps = {
@@ -23,11 +22,6 @@ export const PasswordSection = ({ email, isVerified }: PasswordSectionProps) => 
               neverificată.
             </LockNotice>
           )}
-
-          <Notice>
-            Schimbarea parolei direct din cont (cu parola curentă) nu este disponibilă: API-ul expune
-            doar fluxul de resetare prin email.
-          </Notice>
         </div>
       </SectionContent>
     </Section>

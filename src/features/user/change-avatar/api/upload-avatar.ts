@@ -5,7 +5,7 @@ import type { ChangeAvatarRequest, ChangeAvatarResponse } from "../model/types"
 export const uploadAvatar = async (
   values: ChangeAvatarRequest,
 ): Promise<ChangeAvatarResponse> => {
-  const { data, error } = await client.POST("/users/upload/avatar", {
+  const { data, error } = await client.POST("/users/me/avatar", {
     body: values,
     bodySerializer(body) {
       const formData = new FormData()

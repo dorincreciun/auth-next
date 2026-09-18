@@ -28,7 +28,11 @@ export default defineConfig([
      * De aceea slice-urile expun un al doilea entrypoint, `server.ts`, iar
      * consumatorii lui sunt exceptați de la regula de public API.
      */
-    files: ["./src/entities/user/api/get-me.ts", "./src/pages/**/ui/**"],
+    files: [
+      "./src/entities/user/api/get-me.ts",
+      "./src/entities/session/api/get-sessions.ts",
+      "./src/pages/**/ui/**",
+    ],
     rules: {
       "fsd/no-public-api-sidestep": "off",
     },
@@ -39,7 +43,11 @@ export default defineConfig([
      * Aceste trei widget-uri sunt folosite în `app/profile/layout.tsx`, iar
      * regula le-ar raporta greșit ca „slice fără nicio referință”.
      */
-    files: ["./src/widgets/breadcrumb/**", "./src/widgets/footer/**", "./src/widgets/sidebar-profile/**"],
+    files: [
+      "./src/widgets/breadcrumb/**",
+      "./src/widgets/footer/**",
+      "./src/widgets/sidebar-profile/**",
+    ],
     rules: {
       "fsd/insignificant-slice": "off",
     },

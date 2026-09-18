@@ -1,0 +1,34 @@
+name: auth-next
+
+services:
+  web:
+    image: auth-next-web:prod
+    build:
+      context: .
+      target: runtime
+      args:
+        # Fixat la build, fiindcă rewrite-ul ajunge în routes-manifest.json.
+        # `.env` local conține `localhost:5000` pentru `npm run dev`; în container
+        # adresa trebuie să fie a serviciului din rețeaua Docker, de aceea aici e
+        # o variabilă separată și nu `API_URL`.
+        API_URL: ${API_URL_DOCKER:-http://api:5000}
+        API_BASE_PATH: ${API_BASE_PATH:-/api/v1}
+        SESSION_NAME: ${SESSION_NAME:-sessionId}
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      API_URL: ${API_URL_DOCKER:-http://api:5000}
+      API_BASE_PATH: ${API_BASE_PATH:-/api/v1}
+      SESSION_NAME: ${SESSION_NAME:-sessionId}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    networks:
+      - default
+      - api
+
+networks:
+  # Backend-ul trăiește în compose-ul din `auth-nest`; pornește-l întâi
+  # (`docker compose up -d` acolo), altfel rețeaua nu există încă.
+  api:
+    name: auth-nest_default
+    external: true

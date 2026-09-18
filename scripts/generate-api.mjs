@@ -12,9 +12,32 @@ const BLOB = ts.factory.createTypeReferenceNode("Blob")
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull())
 
 const SCHEMA_URL = process.env.SWAGGER_URL ?? "http://localhost:5000/swagger/json"
+const BASE_PATH = process.env.API_BASE_PATH ?? "/api/v1"
 const OUTPUT_PATH = new URL("../src/shared/api/v1.d.ts", import.meta.url)
 
-const ast = await openapiTS(new URL(SCHEMA_URL), {
+/**
+ * Nest documentează path-urile cu prefixul global și versiunea incluse
+ * (`/api/v1/auth/login`). Prefixul aparține însă `baseUrl`-ului clientului și
+ * rewrite-ului din `next.config.ts`, nu fiecărui apel, așa că îl scoatem aici:
+ * codul rămâne cu path-uri stabile (`/auth/login`) chiar dacă versiunea crește.
+ */
+const stripBasePath = (schema) => ({
+  ...schema,
+  paths: Object.fromEntries(
+    Object.entries(schema.paths).map(([path, item]) => [
+      path.startsWith(BASE_PATH) ? path.slice(BASE_PATH.length) || "/" : path,
+      item,
+    ]),
+  ),
+})
+
+const response = await fetch(SCHEMA_URL)
+
+if (!response.ok) {
+  throw new Error(`Nu am putut citi schema (${response.status}) de la ${SCHEMA_URL}`)
+}
+
+const ast = await openapiTS(stripBasePath(await response.json()), {
   transform(schemaObject) {
     if (schemaObject.format === "binary") {
       return schemaObject.nullable ? ts.factory.createUnionTypeNode([BLOB, NULL]) : BLOB
@@ -32,4 +55,4 @@ const header = [
 
 await writeFile(OUTPUT_PATH, `${header}\n${astToString(ast)}`)
 
-console.log(`✔ ${SCHEMA_URL} → src/shared/api/v1.d.ts`)
+console.log(`✔ ${SCHEMA_URL} (fără ${BASE_PATH}) → src/shared/api/v1.d.ts`)
