@@ -4,13 +4,6 @@ import { env } from "@shared/config/env.config"
 
 const nextConfig: NextConfig = {
   /**
-   * Împachetează serverul cu doar dependențele folosite, ca imaginea Docker să
-   * nu ducă tot `node_modules` cu ea. Pe Vercel îl dezactivăm: platforma face
-   * propriul packaging, iar adaptorul ei pică cu `standalone` activ
-   * (ENOENT `.next/next-server.js.nft.json` în `onBuildComplete`).
-   */
-  output: process.env.VERCEL ? undefined : "standalone",
-  /**
    * Next generează AGENTS.md/CLAUDE.md la fiecare `next dev`. Regulile pentru
    * agenți sunt ținute versionat în `.cursor/skills`, deci fișierele generate ar
    * fi doar zgomot necontrolat în repo.

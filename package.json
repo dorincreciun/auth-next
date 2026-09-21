@@ -9,11 +9,7 @@
     "build": "next build",
     "start": "next start",
     "test:ts": "tsc --noEmit",
-    "generate:api": "node ./scripts/generate-api.mjs",
-    "docker:up": "docker compose up -d --build",
-    "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
-    "docker:down": "docker compose down",
-    "docker:logs": "docker compose logs -f web"
+    "generate:api": "node ./scripts/generate-api.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.5.7",
