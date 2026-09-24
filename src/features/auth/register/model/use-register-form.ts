@@ -19,7 +19,7 @@ export const useRegisterForm = () => {
     onSubmit: (values) => register(values),
     onSuccess: () => {
       toast.success(REGISTER_MESSAGES.SUCCESS);
-      router.replace(getRoutePath(APP_ROUTES.VERIFY_EMAIL));
+      router.replace(getRoutePath(APP_ROUTES.PROFILE));
     },
     onError: (error) => toast.error(error.message),
     onUnexpectedError: () => toast.error(REGISTER_MESSAGES.ERROR),

@@ -4,17 +4,15 @@ import { Upload } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@shared/ui/avatar"
 import { Button } from "@shared/ui/button"
-import { LockNotice } from "@shared/ui/lock-notice"
 
 import { AvatarCropDialog } from "./avatar-crop-dialog"
 import { useChangeAvatar } from "../model/use-change-avatar"
 
 type ChangeAvatarProps = {
   avatarUrl?: string | null
-  isVerified: boolean
 }
 
-export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
+export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
   const {
     previewUrl,
     crop,
@@ -44,7 +42,7 @@ export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
-        <p className="text-foreground text-sm font-semibold tracking-tight">Încarcă avatar nou</p>
+        <p className="text-foreground text-sm font-semibold tracking-tight">Upload a new avatar</p>
 
         <input
           ref={inputRef}
@@ -52,7 +50,7 @@ export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
           accept="image/png,image/jpeg"
           className="sr-only"
           tabIndex={-1}
-          disabled={!isVerified || isSaving || isDeleting}
+          disabled={isSaving || isDeleting}
           onChange={onFileChange}
         />
 
@@ -61,14 +59,14 @@ export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
           size="sm"
           className="h-8 max-w-max gap-1.5"
           onClick={openFilePicker}
-          disabled={!isVerified || isSaving || isDeleting}
+          disabled={isSaving || isDeleting}
         >
           <Upload data-icon="inline-start" />
-          Alege fișier
+          Choose file
         </Button>
 
         <p className="text-muted-foreground text-xs leading-relaxed">
-          Dimensiunea ideală este 192 × 192 pixeli. Mărimea maximă permisă: 2 MB.
+          The ideal size is 192 × 192 pixels. Maximum allowed size: 2 MB.
         </p>
 
         <Button
@@ -77,14 +75,10 @@ export const ChangeAvatar = ({ avatarUrl, isVerified }: ChangeAvatarProps) => {
           size="sm"
           className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive max-w-max"
           onClick={onDelete}
-          disabled={!isVerified || !avatarUrl || isSaving || isDeleting}
+          disabled={!avatarUrl || isSaving || isDeleting}
         >
-          {isDeleting ? "Se șterge..." : "Șterge avatarul"}
+          {isDeleting ? "Deleting..." : "Delete avatar"}
         </Button>
-
-        {!isVerified ? (
-          <LockNotice>Încărcarea și ștergerea avatarului cer un email confirmat.</LockNotice>
-        ) : null}
       </div>
 
       <AvatarCropDialog

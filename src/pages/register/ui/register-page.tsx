@@ -5,8 +5,8 @@ export const RegisterPage = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Înregistrare</CardTitle>
-        <CardDescription>Creează un cont nou pentru a continua.</CardDescription>
+        <CardTitle>Create account</CardTitle>
+        <CardDescription>Create a new account to continue.</CardDescription>
       </CardHeader>
       <CardContent>
         <RegisterForm />

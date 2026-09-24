@@ -173,40 +173,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/auth/email/verify/send": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Trimite codul de verificare a emailului */
-        post: operations["AuthController_sendVerificationEmail_v1"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/email/verify/confirm": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Confirmă emailul cu codul primit */
-        post: operations["AuthController_confirmEmail_v1"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/auth/password/forgot": {
         parameters: {
             query?: never;
@@ -452,11 +418,6 @@ export interface components {
              */
             email: string;
             /**
-             * @description Dacă adresa de email a fost confirmată
-             * @example false
-             */
-            isVerified: boolean;
-            /**
              * Format: date-time
              * @description Data și ora la care a fost creat contul
              * @example 2026-07-24T12:00:00.000Z
@@ -511,13 +472,6 @@ export interface components {
              * @example 2026-07-27T08:05:00.000Z
              */
             tokenExpiresAt: string;
-        };
-        ConfirmEmailPayloadDto: {
-            /**
-             * @description Codul OTP de 6 cifre primit pe email
-             * @example 123456
-             */
-            token: string;
         };
         ForgotPasswordPayloadDto: {
             /**
@@ -1156,159 +1110,6 @@ export interface operations {
             };
             /** @description Neautentificat */
             401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-        };
-    };
-    AuthController_sendVerificationEmail_v1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Cod de verificare trimis pe email */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description Indică un răspuns de succes
-                         * @example true
-                         * @enum {boolean}
-                         */
-                        success: true;
-                        /**
-                         * @description Codul HTTP al răspunsului
-                         * @example 200
-                         */
-                        statusCode: number;
-                        /** @description Meta informații utile pentru client */
-                        meta: {
-                            /** @example /auth/login */
-                            path: string;
-                            /**
-                             * Format: date-time
-                             * @example 2026-07-27T08:00:00.000Z
-                             */
-                            timestamp: string;
-                        };
-                        data: components["schemas"]["TokenSentDataDto"];
-                    };
-                };
-            };
-            /** @description Email deja confirmat / cod încă valid */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-            /** @description Neautentificat */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-            /** @description Prea multe cereri */
-            429: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-        };
-    };
-    AuthController_confirmEmail_v1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ConfirmEmailPayloadDto"];
-            };
-        };
-        responses: {
-            /** @description Email confirmat cu succes */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /**
-                         * @description Indică un răspuns de succes
-                         * @example true
-                         * @enum {boolean}
-                         */
-                        success: true;
-                        /**
-                         * @description Codul HTTP al răspunsului
-                         * @example 200
-                         */
-                        statusCode: number;
-                        /** @description Meta informații utile pentru client */
-                        meta: {
-                            /** @example /auth/login */
-                            path: string;
-                            /**
-                             * Format: date-time
-                             * @example 2026-07-27T08:00:00.000Z
-                             */
-                            timestamp: string;
-                        };
-                        data: components["schemas"]["MessageDataDto"];
-                    };
-                };
-            };
-            /** @description Cod invalid / expirat */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-            /** @description Neautentificat */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-            /** @description Date invalide */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponseDto"];
-                };
-            };
-            /** @description Prea multe cereri */
-            429: {
                 headers: {
                     [name: string]: unknown;
                 };

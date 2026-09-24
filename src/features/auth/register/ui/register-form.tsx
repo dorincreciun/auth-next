@@ -27,20 +27,18 @@ export const RegisterForm = () => {
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="nume@exemplu.com"
+            placeholder="name@example.com"
             aria-invalid={!!errors.email}
           />
           {errors.email ? (
             <FieldError errors={[errors.email]} />
           ) : (
-            <FieldDescription>
-              Vei primi un cod de verificare pe această adresă.
-            </FieldDescription>
+            <FieldDescription>Use an address you can access.</FieldDescription>
           )}
         </Field>
 
         <Field data-invalid={!!errors.password}>
-          <FieldLabel htmlFor="password">Parolă</FieldLabel>
+          <FieldLabel htmlFor="password">Password</FieldLabel>
           <Input
             {...register("password")}
             id="password"
@@ -52,7 +50,7 @@ export const RegisterForm = () => {
             <FieldError errors={[errors.password]} />
           ) : (
             <FieldDescription>
-              Minim 8 caractere, litere mari/mici, cifră și caracter special.
+              At least 8 characters, upper and lower case, a digit, and a special character.
             </FieldDescription>
           )}
         </Field>
@@ -65,18 +63,18 @@ export const RegisterForm = () => {
 
         <Field>
           <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Se creează contul…" : "Creează cont"}
+            {isSubmitting ? "Creating account…" : "Create account"}
           </Button>
         </Field>
 
         <Field>
           <FieldDescription className="text-center">
-            Ai deja cont?{" "}
+            Already have an account?{" "}
             <Link
               href={getRoutePath(APP_ROUTES.LOGIN)}
               className="font-medium text-primary hover:underline"
             >
-              Autentifică-te
+              Sign in
             </Link>
           </FieldDescription>
         </Field>

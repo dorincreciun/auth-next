@@ -1,6 +1,6 @@
 import { Settings } from "lucide-react"
 
-import { type User, UserAvatar, VerificationBadge } from "@entities/user"
+import { type User, UserAvatar } from "@entities/user"
 import { LogoutButton } from "@features/auth/logout"
 
 import { ProfileNav } from "./profile-nav"
@@ -19,10 +19,10 @@ export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
           </div>
           <div className="min-w-0">
             <p className="text-primary text-[11px] font-semibold tracking-[0.18em] uppercase">
-              Setări
+              Settings
             </p>
             <h1 className="text-foreground truncate text-base font-semibold tracking-tight">
-              Contul meu
+              My account
             </h1>
           </div>
         </div>
@@ -36,7 +36,6 @@ export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
           <div className="min-w-0 flex-1">
             <p className="text-foreground truncate text-sm font-medium">{user.email}</p>
           </div>
-          <VerificationBadge isVerified={user.isVerified} compact />
         </div>
 
         <LogoutButton />

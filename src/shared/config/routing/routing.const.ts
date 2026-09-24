@@ -19,10 +19,6 @@ export const APP_ROUTES = {
     path: "/forgot-password",
     access: "guest-only",
   },
-  VERIFY_EMAIL: {
-    path: "/verify-email",
-    access: "private",
-  },
   RESET_PASSWORD: {
     path: "/reset-password",
     access: "public",

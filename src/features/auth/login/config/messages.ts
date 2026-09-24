@@ -1,4 +1,4 @@
 export const LOGIN_MESSAGES = {
-  SUCCESS: "Autentificare reușită",
-  ERROR: "A apărut o eroare la autentificare. Încearcă din nou.",
-} as const;
+  SUCCESS: "Signed in",
+  ERROR: "Something went wrong while signing in. Try again.",
+} as const

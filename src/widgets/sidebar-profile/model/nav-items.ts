@@ -5,7 +5,7 @@ import { APP_ROUTES } from "@shared/config"
 import type { ProfileNavItem } from "./types"
 
 export const profileNavItems: ProfileNavItem[] = [
-  { label: "Profil", icon: User, route: APP_ROUTES.PROFILE },
-  { label: "Securitate", icon: Shield, route: APP_ROUTES.PROFILE_SECURITY },
-  { label: "Dispozitive", icon: Monitor, route: APP_ROUTES.PROFILE_DEVICES },
+  { label: "Profile", icon: User, route: APP_ROUTES.PROFILE },
+  { label: "Security", icon: Shield, route: APP_ROUTES.PROFILE_SECURITY },
+  { label: "Devices", icon: Monitor, route: APP_ROUTES.PROFILE_DEVICES },
 ]

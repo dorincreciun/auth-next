@@ -1,22 +1,19 @@
-import {z} from "zod";
+import { z } from "zod"
 
-import type {RegisterRequest} from "./types";
+import type { RegisterRequest } from "./types"
 
 export const registerSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, "Adresa de email este obligatorie")
-    .pipe(z.email("Adresa de email nu este validă")),
+    .min(1, "Email is required")
+    .pipe(z.email("The email address is not valid")),
   password: z
     .string()
-    .min(1, "Parola este obligatorie")
-    .min(8, "Parola trebuie să aibă minim 8 caractere")
-    .regex(/[a-z]/, "Parola trebuie să conțină cel puțin o literă mică")
-    .regex(/[A-Z]/, "Parola trebuie să conțină cel puțin o literă mare")
-    .regex(/\d/, "Parola trebuie să conțină cel puțin o cifră")
-    .regex(
-      /[^A-Za-z0-9]/,
-      "Parola trebuie să conțină cel puțin un caracter special",
-    ),
-}) satisfies z.ZodType<RegisterRequest>;
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/\d/, "Password must contain at least one digit")
+    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+}) satisfies z.ZodType<RegisterRequest>

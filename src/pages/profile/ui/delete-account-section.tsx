@@ -6,8 +6,8 @@ import { Section, SectionContent, SectionDescription, SectionTitle } from "@shar
 export const DeleteAccountSection = () => {
   return (
     <Section variant="danger">
-      <SectionTitle>Zona periculoasă</SectionTitle>
-      <SectionDescription>Acțiuni ireversibile asupra contului.</SectionDescription>
+      <SectionTitle>Danger zone</SectionTitle>
+      <SectionDescription>Irreversible actions on the account.</SectionDescription>
       <SectionContent>
         <div className="flex flex-col gap-3">
           <Field
@@ -15,19 +15,19 @@ export const DeleteAccountSection = () => {
             className="border-destructive/20 bg-destructive/5 flex items-center justify-between gap-4 rounded-lg border px-4 py-3.5"
           >
             <FieldContent>
-              <FieldLabel>Șterge contul</FieldLabel>
+              <FieldLabel>Delete account</FieldLabel>
               <FieldDescription>
-                Acțiune permanentă. Toate datele asociate contului vor fi eliminate.
+                Permanent action. All data linked to the account will be removed.
               </FieldDescription>
             </FieldContent>
 
             <Button type="button" variant="destructive" size="sm" className="shrink-0" disabled>
-              Șterge contul
+              Delete account
             </Button>
           </Field>
 
           <Notice>
-            Indisponibil momentan: API-ul nu expune un endpoint de ștergere a contului.
+            Unavailable for now: the API does not expose an account deletion endpoint.
           </Notice>
         </div>
       </SectionContent>

@@ -42,7 +42,7 @@ export const RevokeSessionButton = ({
           disabled={isPending}
         >
           <Icon data-icon="inline-start" />
-          {isCurrent ? "Deconectează-te" : "Închide sesiunea"}
+          {isCurrent ? "Sign out" : "Close session"}
         </Button>
       </DialogTrigger>
 
@@ -51,11 +51,11 @@ export const RevokeSessionButton = ({
         showCloseButton={!isPending}
       >
         <DialogHeader>
-          <DialogTitle>{isCurrent ? "Deconectare" : "Închide sesiunea"}</DialogTitle>
+          <DialogTitle>{isCurrent ? "Sign out" : "Close session"}</DialogTitle>
           <DialogDescription>
             {isCurrent
-              ? "Aceasta este sesiunea curentă. Va trebui să te autentifici din nou pentru a accesa contul."
-              : `Sesiunea de pe ${deviceLabel} va fi închisă imediat. Dispozitivul va trebui să se autentifice din nou.`}
+              ? "This is the current session. You will need to sign in again to access your account."
+              : `The session on ${deviceLabel} will be closed immediately. That device will need to sign in again.`}
           </DialogDescription>
         </DialogHeader>
 
@@ -67,7 +67,7 @@ export const RevokeSessionButton = ({
               className="h-9 w-full sm:w-auto sm:min-w-24"
               disabled={isPending}
             >
-              Anulează
+              Cancel
             </Button>
           </DialogClose>
           <Button
@@ -78,7 +78,7 @@ export const RevokeSessionButton = ({
             onClick={revoke}
           >
             <Icon data-icon="inline-start" />
-            {isPending ? "Se închide…" : "Închide sesiunea"}
+            {isPending ? "Closing…" : "Close session"}
           </Button>
         </DialogFooter>
       </DialogContent>

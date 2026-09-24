@@ -1,4 +1,4 @@
 export const LOGOUT_MESSAGES = {
-  SUCCESS: "Te-ai deconectat cu succes",
-  ERROR: "A apărut o eroare la deconectare. Încearcă din nou.",
-} as const;
+  SUCCESS: "You have signed out",
+  ERROR: "Something went wrong while signing out. Try again.",
+} as const

@@ -13,15 +13,13 @@ export const ProfileDevicesPage = async () => {
   return (
     <div className="[&>section:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-child)]:border-b [&>section:not(:last-child)]:pb-10">
       <Section>
-        <SectionTitle>Sesiuni active</SectionTitle>
-        <SectionDescription>Dispozitivele conectate recent la contul tău.</SectionDescription>
+        <SectionTitle>Active sessions</SectionTitle>
+        <SectionDescription>Devices recently signed in to your account.</SectionDescription>
         <SectionContent>
           {sessions === null ? (
-            <Notice>
-              Nu am putut încărca sesiunile active. Reîncarcă pagina în câteva momente.
-            </Notice>
+            <Notice>Could not load active sessions. Reload the page in a moment.</Notice>
           ) : sessions.length === 0 ? (
-            <Notice>Nu există sesiuni active înregistrate pentru contul tău.</Notice>
+            <Notice>There are no active sessions recorded for your account.</Notice>
           ) : (
             <div className="flex flex-col gap-3">
               {sessions.map((session) => (
@@ -43,39 +41,38 @@ export const ProfileDevicesPage = async () => {
       </Section>
 
       <Section variant="danger">
-        <SectionTitle>Deconectare de pe celelalte dispozitive</SectionTitle>
+        <SectionTitle>Sign out other devices</SectionTitle>
         <SectionDescription>
-          Încheie toate sesiunile în afară de cea curentă. Util dacă bănuiești un acces neautorizat.
+          End every session except the current one. Useful if you suspect unauthorized access.
         </SectionDescription>
         <SectionContent>
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 px-4 py-3.5">
               <p className="text-muted-foreground text-sm">
                 {otherSessionsCount === 0
-                  ? "Nu există alte dispozitive conectate"
-                  : `${otherSessionsCount} ${otherSessionsCount === 1 ? "alt dispozitiv" : "alte dispozitive"} conectate`}
+                  ? "There are no other connected devices"
+                  : `${otherSessionsCount} other ${otherSessionsCount === 1 ? "device" : "devices"} connected`}
               </p>
               <RevokeOtherSessionsButton otherSessionsCount={otherSessionsCount} />
             </div>
 
             <Notice>
-              Sesiunea curentă rămâne activă. Pentru a o închide, folosește butonul de deconectare
-              din bara laterală.
+              The current session stays active. To close it, use the sign-out button in the sidebar.
             </Notice>
           </div>
         </SectionContent>
       </Section>
 
       <Section>
-        <SectionTitle>Locații</SectionTitle>
-        <SectionDescription>Unde au fost active sesiunile tale.</SectionDescription>
+        <SectionTitle>Locations</SectionTitle>
+        <SectionDescription>Where your sessions have been active.</SectionDescription>
         <SectionContent>
           <div className="flex flex-col gap-3">
             <Leaflet className="h-80 overflow-hidden border border-white/10" />
 
             <Notice>
-              Harta rămâne fără marcaje: API-ul expune adresa IP a fiecărei sesiuni, dar nu
-              coordonate geografice.
+              The map has no markers: the API exposes each session's IP address, but not geographic
+              coordinates.
             </Notice>
           </div>
         </SectionContent>

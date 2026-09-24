@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Dispozitive",
-  description: "Sesiunile active și locațiile lor.",
+  title: "Devices",
+  description: "Active sessions and their locations.",
 }
 
 export { ProfileDevicesPage as default } from "@pages/profile-devices"

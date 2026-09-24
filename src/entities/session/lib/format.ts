@@ -1,16 +1,16 @@
 import type { SessionDeviceData } from "../model/types"
 
-const UNKNOWN_DEVICE = "Dispozitiv necunoscut"
+const UNKNOWN_DEVICE = "Unknown device"
 
-const relativeFormatter = new Intl.RelativeTimeFormat("ro", { numeric: "auto" })
+const relativeFormatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" })
 
 /**
  * Pentru expirare, „auto” alternează între „luna viitoare” și „peste 30 de zile”
  * la durate practic egale; forma numerică rămâne consecventă.
  */
-const expiresFormatter = new Intl.RelativeTimeFormat("ro", { numeric: "always" })
+const expiresFormatter = new Intl.RelativeTimeFormat("en", { numeric: "always" })
 
-const dateFormatter = new Intl.DateTimeFormat("ro-RO", {
+const dateFormatter = new Intl.DateTimeFormat("en", {
   day: "numeric",
   month: "long",
   year: "numeric",
@@ -36,7 +36,7 @@ export const getDeviceLabel = (deviceData: SessionDeviceData | null): string => 
   const { browser, os } = deviceData
 
   if (browser && os) {
-    return `${browser} pe ${os}`
+    return `${browser} on ${os}`
   }
 
   return browser || os || UNKNOWN_DEVICE
@@ -47,7 +47,7 @@ export const formatRelativeTime = (isoDate: string): string => {
   const timestamp = new Date(isoDate).getTime()
 
   if (Number.isNaN(timestamp)) {
-    return "necunoscut"
+    return "unknown"
   }
 
   const elapsedSeconds = (timestamp - Date.now()) / 1000
@@ -58,20 +58,20 @@ export const formatRelativeTime = (isoDate: string): string => {
     }
   }
 
-  return "chiar acum"
+  return "just now"
 }
 
 /** Data absolută, pentru tooltip-ul de lângă timpul relativ. */
 export const formatAbsoluteTime = (isoDate: string): string => {
   const date = new Date(isoDate)
 
-  return Number.isNaN(date.getTime()) ? "necunoscut" : dateFormatter.format(date)
+  return Number.isNaN(date.getTime()) ? "unknown" : dateFormatter.format(date)
 }
 
 /** Cât mai ține sesiunea, plecând de la `expiresInSeconds`. */
 export const formatExpiresIn = (expiresInSeconds: number): string => {
   if (expiresInSeconds <= 0) {
-    return "expirată"
+    return "expired"
   }
 
   for (const [unit, secondsInUnit] of UNITS) {

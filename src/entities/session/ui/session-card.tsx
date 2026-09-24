@@ -52,7 +52,7 @@ export const SessionCard = ({ session, action, className }: SessionCardProps) =>
 
             {isCurrent ? (
               <span className="border-primary/30 bg-primary/10 text-primary inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold">
-                Acest dispozitiv
+                This device
               </span>
             ) : null}
           </div>
@@ -66,17 +66,17 @@ export const SessionCard = ({ session, action, className }: SessionCardProps) =>
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5"
-                  title={`Autentificat: ${formatAbsoluteTime(deviceData.loggedAt)}`}
+                  title={`Signed in: ${formatAbsoluteTime(deviceData.loggedAt)}`}
                 >
                   <Clock className="size-3" aria-hidden />
-                  Activ {formatRelativeTime(deviceData.lastActiveAt)}
+                  Active {formatRelativeTime(deviceData.lastActiveAt)}
                 </span>
               </>
             ) : (
-              <span>Fără metadate de dispozitiv</span>
+              <span>No device metadata</span>
             )}
 
-            <span>Expiră {formatExpiresIn(expiresInSeconds)}</span>
+            <span>Expires {formatExpiresIn(expiresInSeconds)}</span>
           </div>
         </div>
       </div>

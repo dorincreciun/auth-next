@@ -1,4 +1,4 @@
 export const REGISTER_MESSAGES = {
-  SUCCESS: "Cont creat. Confirmă adresa de email ca să poți salva modificările.",
-  ERROR: "A apărut o eroare la înregistrare. Încearcă din nou.",
-} as const;
+  SUCCESS: "Account created.",
+  ERROR: "Something went wrong while creating the account. Try again.",
+} as const

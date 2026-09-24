@@ -7,8 +7,8 @@ export const ResetPasswordPage = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Parolă nouă</CardTitle>
-        <CardDescription>Introdu codul primit pe email și alege o parolă nouă.</CardDescription>
+        <CardTitle>New password</CardTitle>
+        <CardDescription>Enter the code from the email and choose a new password.</CardDescription>
       </CardHeader>
       <CardContent>
         {/* useSearchParams din formular cere o graniță de Suspense */}

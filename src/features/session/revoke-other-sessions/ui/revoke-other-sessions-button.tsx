@@ -39,7 +39,7 @@ export const RevokeOtherSessionsButton = ({
           disabled={isPending || !hasOtherSessions}
         >
           <ShieldOff data-icon="inline-start" />
-          Deconectează
+          Sign out
         </Button>
       </DialogTrigger>
 
@@ -48,11 +48,11 @@ export const RevokeOtherSessionsButton = ({
         showCloseButton={!isPending}
       >
         <DialogHeader>
-          <DialogTitle>Deconectează celelalte dispozitive</DialogTitle>
+          <DialogTitle>Sign out other devices</DialogTitle>
           <DialogDescription>
             {otherSessionsCount === 1
-              ? "Un alt dispozitiv va fi deconectat imediat. Sesiunea curentă rămâne activă."
-              : `${otherSessionsCount} dispozitive vor fi deconectate imediat. Sesiunea curentă rămâne activă.`}
+              ? "One other device will be signed out immediately. The current session stays active."
+              : `${otherSessionsCount} devices will be signed out immediately. The current session stays active.`}
           </DialogDescription>
         </DialogHeader>
 
@@ -64,7 +64,7 @@ export const RevokeOtherSessionsButton = ({
               className="h-9 w-full sm:w-auto sm:min-w-24"
               disabled={isPending}
             >
-              Anulează
+              Cancel
             </Button>
           </DialogClose>
           <Button
@@ -75,7 +75,7 @@ export const RevokeOtherSessionsButton = ({
             onClick={revokeOthers}
           >
             <ShieldOff data-icon="inline-start" />
-            {isPending ? "Se deconectează…" : "Deconectează"}
+            {isPending ? "Signing out…" : "Sign out"}
           </Button>
         </DialogFooter>
       </DialogContent>

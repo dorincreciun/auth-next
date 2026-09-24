@@ -18,9 +18,9 @@ export const ProfilePage = async () => {
 
   return (
     <div className="[&>*:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:pb-10">
-      <ChangeAvatar avatarUrl={profile?.avatarUrl} isVerified={user.isVerified} />
+      <ChangeAvatar avatarUrl={profile?.avatarUrl} />
 
-      <UpdateProfileForm profile={profile} isVerified={user.isVerified} />
+      <UpdateProfileForm profile={profile} />
 
       <DeleteAccountSection />
     </div>

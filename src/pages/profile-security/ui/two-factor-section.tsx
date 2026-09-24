@@ -5,8 +5,8 @@ import { Switch } from "@shared/ui/switch"
 export const TwoFactorSection = () => {
   return (
     <Section>
-      <SectionTitle>Preferințe</SectionTitle>
-      <SectionDescription>Opțiuni suplimentare pentru protecția contului.</SectionDescription>
+      <SectionTitle>Preferences</SectionTitle>
+      <SectionDescription>Extra options for protecting your account.</SectionDescription>
       <SectionContent>
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 px-4 py-3.5">
@@ -15,12 +15,12 @@ export const TwoFactorSection = () => {
               className="text-muted-foreground text-sm font-medium"
               aria-disabled
             >
-              Autentificare în doi pași
+              Two-factor authentication
             </label>
             <Switch id="two-factor" name="twoFactor" className="shrink-0" disabled />
           </div>
 
-          <Notice>Indisponibil momentan: API-ul nu implementează autentificarea în doi pași.</Notice>
+          <Notice>Unavailable for now: the API does not implement two-factor authentication.</Notice>
         </div>
       </SectionContent>
     </Section>

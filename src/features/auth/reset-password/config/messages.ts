@@ -1,5 +1,5 @@
 export const RESET_PASSWORD_MESSAGES = {
-  SUCCESS: "Parola a fost resetată cu succes",
-  ERROR: "A apărut o eroare la resetarea parolei. Încearcă din nou.",
-  EXPIRED: "Codul a expirat. Solicită unul nou.",
-} as const;
+  SUCCESS: "Password reset successfully",
+  ERROR: "Something went wrong while resetting the password. Try again.",
+  EXPIRED: "The code has expired. Request a new one.",
+} as const

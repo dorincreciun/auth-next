@@ -5,8 +5,8 @@ export const LoginPage = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Autentificare</CardTitle>
-        <CardDescription>Introdu datele contului pentru a continua.</CardDescription>
+        <CardTitle>Sign in</CardTitle>
+        <CardDescription>Enter your account details to continue.</CardDescription>
       </CardHeader>
       <CardContent>
         <LoginForm />

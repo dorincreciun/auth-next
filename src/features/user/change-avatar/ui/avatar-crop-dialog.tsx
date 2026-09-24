@@ -51,10 +51,10 @@ export const AvatarCropDialog = ({
         showCloseButton={!isSaving}
       >
         <DialogHeader>
-          <DialogTitle>Ajustează avatarul</DialogTitle>
+          <DialogTitle>Adjust avatar</DialogTitle>
           <DialogDescription>
-            Poziționează și mărește imaginea pentru a obține cel mai bun cadru. Zona vizibilă în
-            cerc va fi folosită ca avatar.
+            Position and zoom the image to get the best frame. The area visible in the circle will
+            be used as the avatar.
           </DialogDescription>
         </DialogHeader>
 
@@ -95,7 +95,7 @@ export const AvatarCropDialog = ({
             max={ZOOM_MAX}
             step={ZOOM_STEP}
             className="w-full"
-            aria-label="Nivel de zoom"
+            aria-label="Zoom level"
           />
           <span className="text-muted-foreground w-10 shrink-0 text-right text-xs tabular-nums">
             {zoom.toFixed(1)}×
@@ -111,7 +111,7 @@ export const AvatarCropDialog = ({
             disabled={isSaving}
           >
             <X data-icon="inline-start" />
-            Anulează
+            Cancel
           </Button>
           <Button
             type="button"
@@ -120,7 +120,7 @@ export const AvatarCropDialog = ({
             disabled={isSaving || !croppedArea}
           >
             <Save data-icon="inline-start" />
-            {isSaving ? "Se salvează..." : "Salvează"}
+            {isSaving ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

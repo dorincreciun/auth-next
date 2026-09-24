@@ -1,11 +1,11 @@
-import {z} from "zod";
+import { z } from "zod"
 
-import type {ForgotPasswordRequest} from "./types";
+import type { ForgotPasswordRequest } from "./types"
 
 export const forgotPasswordSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, "Adresa de email este obligatorie")
-    .pipe(z.email("Adresa de email nu este validă")),
-}) satisfies z.ZodType<ForgotPasswordRequest>;
+    .min(1, "Email is required")
+    .pipe(z.email("The email address is not valid")),
+}) satisfies z.ZodType<ForgotPasswordRequest>

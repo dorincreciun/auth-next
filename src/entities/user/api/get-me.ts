@@ -12,12 +12,16 @@ import type { User } from "../model/types"
  * `cache` dedupează apelurile din layout + page în același request.
  */
 export const getMe = cache(async (): Promise<User | null> => {
-  const api = await server()
-  const { data, error } = await api.GET("/auth/me")
+  try {
+    const api = await server()
+    const { data, error } = await api.GET("/auth/me")
 
-  if (error || !data?.success) {
+    if (error || !data?.success) {
+      return null
+    }
+
+    return data.data.user
+  } catch {
     return null
   }
-
-  return data.data.user
 })

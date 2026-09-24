@@ -25,12 +25,12 @@ export const RequestPasswordReset = ({ email, disabled }: RequestPasswordResetPr
         disabled={disabled || isRequesting}
       >
         <KeyRound data-icon="inline-start" />
-        {isRequesting ? "Se trimite…" : "Trimite cod de resetare"}
+        {isRequesting ? "Sending…" : "Send reset code"}
       </Button>
 
       <FieldDescription>
-        Trimitem un cod de 6 cifre la <span className="text-foreground">{email}</span> și te ducem la
-        pagina unde alegi parola nouă.
+        We send a 6-digit code to <span className="text-foreground">{email}</span> and take you to
+        the page where you choose a new password.
       </FieldDescription>
     </div>
   )

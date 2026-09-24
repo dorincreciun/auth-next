@@ -18,22 +18,20 @@ export const NotFoundPage = () => {
 
         <div className="flex flex-col gap-2">
           <p className="text-primary text-[11px] font-semibold tracking-[0.18em] uppercase">
-            Eroare 404
+            Error 404
           </p>
-          <h1 className="text-foreground text-2xl font-semibold tracking-tight">
-            Pagina nu a fost găsită
-          </h1>
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight">Page not found</h1>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Linkul pe care ai urmat este greșit sau pagina a fost mutată.
+            The link you followed is wrong, or the page was moved.
           </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
           <Button asChild size="sm">
-            <Link href={getRoutePath(APP_ROUTES.PROFILE)}>Mergi la profil</Link>
+            <Link href={getRoutePath(APP_ROUTES.PROFILE)}>Go to profile</Link>
           </Button>
           <Button asChild variant="outline" size="sm">
-            <Link href={getRoutePath(APP_ROUTES.LOGIN)}>Autentificare</Link>
+            <Link href={getRoutePath(APP_ROUTES.LOGIN)}>Sign in</Link>
           </Button>
         </div>
       </div>

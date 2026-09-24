@@ -17,30 +17,30 @@ export const PersonalFields = ({ register, errors, disabled }: PersonalFieldsPro
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field data-invalid={!!errors.firstName}>
-        <FieldLabel htmlFor="firstName">Prenume</FieldLabel>
+        <FieldLabel htmlFor="firstName">First name</FieldLabel>
         <Input
           {...register("firstName")}
           id="firstName"
           autoComplete="given-name"
-          placeholder="Prenume"
+          placeholder="First name"
           disabled={disabled}
           aria-invalid={!!errors.firstName}
         />
-        <FieldDescription>Numele afișat în contul tău.</FieldDescription>
+        <FieldDescription>The name shown on your account.</FieldDescription>
         <FieldError errors={[errors.firstName]} />
       </Field>
 
       <Field data-invalid={!!errors.lastName}>
-        <FieldLabel htmlFor="lastName">Nume</FieldLabel>
+        <FieldLabel htmlFor="lastName">Last name</FieldLabel>
         <Input
           {...register("lastName")}
           id="lastName"
           autoComplete="family-name"
-          placeholder="Nume"
+          placeholder="Last name"
           disabled={disabled}
           aria-invalid={!!errors.lastName}
         />
-        <FieldDescription>Numele de familie asociat contului.</FieldDescription>
+        <FieldDescription>The family name linked to the account.</FieldDescription>
         <FieldError errors={[errors.lastName]} />
       </Field>
     </div>

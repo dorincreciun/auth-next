@@ -43,7 +43,7 @@ export const useChangeAvatar = () => {
     if (!selectedFile) return
 
     if (selectedFile.size > 2 * 1024 * 1024) {
-      toast.error("Fișierul depășește limita de 2 MB!")
+      toast.error("The file exceeds the 2 MB limit!")
       return
     }
 
@@ -68,15 +68,15 @@ export const useChangeAvatar = () => {
       const response = await uploadAvatar({ avatarFile })
 
       if (!response.success) {
-        toast.error(response.message || "A apărut o eroare la salvarea avatarului.")
+        toast.error(response.message || "Something went wrong while saving the avatar.")
         return
       }
 
-      toast.success("Avatarul a fost actualizat cu succes!")
+      toast.success("Avatar updated successfully!")
       resetState()
       router.refresh()
     } catch {
-      toast.error("A apărut o eroare la salvarea avatarului.")
+      toast.error("Something went wrong while saving the avatar.")
     } finally {
       setIsSaving(false)
     }
@@ -90,15 +90,15 @@ export const useChangeAvatar = () => {
       const response = await deleteAvatar()
 
       if (!response.success) {
-        toast.error(response.message || "A apărut o eroare la ștergerea avatarului.")
+        toast.error(response.message || "Something went wrong while deleting the avatar.")
         return
       }
 
-      toast.success("Avatarul a fost șters cu succes!")
+      toast.success("Avatar deleted successfully!")
       resetState()
       router.refresh()
     } catch {
-      toast.error("A apărut o eroare la ștergerea avatarului.")
+      toast.error("Something went wrong while deleting the avatar.")
     } finally {
       setIsDeleting(false)
     }

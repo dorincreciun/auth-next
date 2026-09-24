@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Profil",
-  description: "Datele publice ale contului tău.",
+  title: "Profile",
+  description: "Your account's public details.",
 }
 
 export { ProfilePage as default } from "@pages/profile"

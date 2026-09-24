@@ -29,7 +29,7 @@ export const LogoutButton = () => {
           disabled={isPending}
         >
           <LogOut data-icon="inline-start" />
-          {isPending ? "Se deconectează…" : "Deconectează-te"}
+          {isPending ? "Signing out…" : "Sign out"}
         </Button>
       </DialogTrigger>
 
@@ -38,10 +38,10 @@ export const LogoutButton = () => {
         showCloseButton={!isPending}
       >
         <DialogHeader>
-          <DialogTitle>Deconectare</DialogTitle>
+          <DialogTitle>Sign out</DialogTitle>
           <DialogDescription>
-            Ești sigur că vrei să te deconectezi? Va trebui să te autentifici din
-            nou pentru a accesa contul.
+            Are you sure you want to sign out? You will need to sign in again to access your
+            account.
           </DialogDescription>
         </DialogHeader>
 
@@ -53,7 +53,7 @@ export const LogoutButton = () => {
               className="h-9 w-full sm:w-auto sm:min-w-24"
               disabled={isPending}
             >
-              Anulează
+              Cancel
             </Button>
           </DialogClose>
           <Button
@@ -64,7 +64,7 @@ export const LogoutButton = () => {
             onClick={logout}
           >
             <LogOut data-icon="inline-start" />
-            {isPending ? "Se deconectează…" : "Deconectează-te"}
+            {isPending ? "Signing out…" : "Sign out"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -33,14 +33,14 @@ export const ForgotPasswordForm = () => {
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="nume@exemplu.com"
+            placeholder="name@example.com"
             aria-invalid={!!errors.email}
           />
           {errors.email ? (
             <FieldError errors={[errors.email]} />
           ) : (
             <FieldDescription>
-              Îți vom trimite un cod de resetare pe această adresă.
+              We will send a reset code to this address.
             </FieldDescription>
           )}
         </Field>
@@ -58,7 +58,7 @@ export const ForgotPasswordForm = () => {
             className="w-full"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Se trimite…" : "Trimite codul"}
+            {isSubmitting ? "Sending…" : "Send code"}
           </Button>
         </Field>
 
@@ -68,7 +68,7 @@ export const ForgotPasswordForm = () => {
               href={getRoutePath(APP_ROUTES.LOGIN)}
               className="font-medium text-primary hover:underline"
             >
-              Înapoi la autentificare
+              Back to sign in
             </Link>
           </FieldDescription>
         </Field>

@@ -1,28 +1,17 @@
 import { RequestPasswordReset } from "@features/auth/forgot-password"
-import { LockNotice } from "@shared/ui/lock-notice"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 
 type PasswordSectionProps = {
   email: string
-  isVerified: boolean
 }
 
-export const PasswordSection = ({ email, isVerified }: PasswordSectionProps) => {
+export const PasswordSection = ({ email }: PasswordSectionProps) => {
   return (
     <Section>
-      <SectionTitle>Parolă</SectionTitle>
-      <SectionDescription>Schimbă parola contului folosind un cod trimis pe email.</SectionDescription>
+      <SectionTitle>Password</SectionTitle>
+      <SectionDescription>Change your account password with a code sent by email.</SectionDescription>
       <SectionContent>
-        <div className="flex flex-col gap-3">
-          <RequestPasswordReset email={email} disabled={!isVerified} />
-
-          {isVerified ? null : (
-            <LockNotice>
-              Resetarea prin email cere o adresă confirmată — codul nu poate ajunge la o adresă
-              neverificată.
-            </LockNotice>
-          )}
-        </div>
+        <RequestPasswordReset email={email} />
       </SectionContent>
     </Section>
   )

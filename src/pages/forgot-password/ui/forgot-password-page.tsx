@@ -5,8 +5,8 @@ export const ForgotPasswordPage = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Resetare parolă</CardTitle>
-        <CardDescription>Introdu adresa de email asociată contului tău.</CardDescription>
+        <CardTitle>Reset password</CardTitle>
+        <CardDescription>Enter the email address linked to your account.</CardDescription>
       </CardHeader>
       <CardContent>
         <ForgotPasswordForm />

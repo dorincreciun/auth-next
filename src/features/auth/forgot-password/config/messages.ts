@@ -1,4 +1,4 @@
 export const FORGOT_PASSWORD_MESSAGES = {
-  SUCCESS: "Dacă adresa există, vei primi un cod de resetare pe email",
-  ERROR: "A apărut o eroare la solicitarea resetării. Încearcă din nou.",
-} as const;
+  SUCCESS: "If the address exists, you will receive a reset code by email",
+  ERROR: "Something went wrong while requesting a reset. Try again.",
+} as const

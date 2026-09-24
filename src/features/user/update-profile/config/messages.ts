@@ -1,4 +1,4 @@
 export const UPDATE_PROFILE_MESSAGES = {
-  SUCCESS: "Profilul a fost actualizat cu succes!",
-  ERROR: "A apărut o eroare la actualizarea profilului. Încearcă din nou.",
+  SUCCESS: "Profile updated successfully!",
+  ERROR: "Something went wrong while updating the profile. Try again.",
 } as const

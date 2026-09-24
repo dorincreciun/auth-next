@@ -17,15 +17,15 @@ export const AboutFields = ({ register, errors, disabled }: AboutFieldsProps) =>
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field data-invalid={!!errors.location}>
-        <FieldLabel htmlFor="location">Locație</FieldLabel>
+        <FieldLabel htmlFor="location">Location</FieldLabel>
         <Input
           {...register("location")}
           id="location"
-          placeholder="Oraș / țară"
+          placeholder="City / country"
           disabled={disabled}
           aria-invalid={!!errors.location}
         />
-        <FieldDescription>Orașul în care locuiești sau lucrezi.</FieldDescription>
+        <FieldDescription>The city where you live or work.</FieldDescription>
         <FieldError errors={[errors.location]} />
       </Field>
 
@@ -34,25 +34,25 @@ export const AboutFields = ({ register, errors, disabled }: AboutFieldsProps) =>
         <Input
           {...register("jobTitle")}
           id="jobTitle"
-          placeholder="Rolul tău"
+          placeholder="Your role"
           disabled={disabled}
           aria-invalid={!!errors.jobTitle}
         />
-        <FieldDescription>Rolul sau poziția ta profesională.</FieldDescription>
+        <FieldDescription>Your role or professional position.</FieldDescription>
         <FieldError errors={[errors.jobTitle]} />
       </Field>
 
       <Field className="sm:col-span-2" data-invalid={!!errors.bio}>
-        <FieldLabel htmlFor="bio">Biografie</FieldLabel>
+        <FieldLabel htmlFor="bio">Bio</FieldLabel>
         <textarea
           {...register("bio")}
           id="bio"
-          placeholder="Scrie câteva rânduri despre tine..."
+          placeholder="Write a few lines about yourself..."
           disabled={disabled}
           aria-invalid={!!errors.bio}
           className="text-foreground placeholder:text-muted-foreground focus-visible:border-primary/60 focus-visible:ring-primary/25 min-h-28 w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm transition-colors outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
         />
-        <FieldDescription>O descriere scurtă pe care o vezi în profilul tău.</FieldDescription>
+        <FieldDescription>A short description shown on your profile.</FieldDescription>
         <FieldError errors={[errors.bio]} />
       </Field>
     </div>

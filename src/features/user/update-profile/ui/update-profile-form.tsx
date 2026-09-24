@@ -3,7 +3,6 @@
 import type { UserProfile } from "@entities/user"
 import { Button } from "@shared/ui/button"
 import { Field, FieldError } from "@shared/ui/field"
-import { LockNotice } from "@shared/ui/lock-notice"
 import { Section, SectionContent, SectionDescription, SectionTitle } from "@shared/ui/section"
 
 import { AboutFields } from "./about-fields"
@@ -12,10 +11,9 @@ import { useUpdateProfile } from "../model/use-update-profile"
 
 type UpdateProfileFormProps = {
   profile: UserProfile | null
-  isVerified: boolean
 }
 
-export const UpdateProfileForm = ({ profile, isVerified }: UpdateProfileFormProps) => {
+export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
   const { register, handleFormSubmit, formState } = useUpdateProfile({
     defaultValues: {
       firstName: profile?.firstName ?? "",
@@ -26,7 +24,7 @@ export const UpdateProfileForm = ({ profile, isVerified }: UpdateProfileFormProp
     },
   })
   const { errors, isSubmitting, isDirty } = formState
-  const canSave = isVerified && isDirty && !isSubmitting
+  const canSave = isDirty && !isSubmitting
 
   return (
     <form
@@ -35,18 +33,18 @@ export const UpdateProfileForm = ({ profile, isVerified }: UpdateProfileFormProp
       className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-10"
     >
       <Section>
-        <SectionTitle>Informații personale</SectionTitle>
-        <SectionDescription>Actualizează datele afișate în contul tău.</SectionDescription>
+        <SectionTitle>Personal information</SectionTitle>
+        <SectionDescription>Update the details shown on your account.</SectionDescription>
         <SectionContent>
-          <PersonalFields register={register} errors={errors} disabled={!isVerified} />
+          <PersonalFields register={register} errors={errors} />
         </SectionContent>
       </Section>
 
       <Section>
-        <SectionTitle>Despre tine</SectionTitle>
-        <SectionDescription>Locație, job title și o biografie scurtă.</SectionDescription>
+        <SectionTitle>About you</SectionTitle>
+        <SectionDescription>Location, job title, and a short bio.</SectionDescription>
         <SectionContent>
-          <AboutFields register={register} errors={errors} disabled={!isVerified} />
+          <AboutFields register={register} errors={errors} />
         </SectionContent>
       </Section>
 
@@ -56,18 +54,10 @@ export const UpdateProfileForm = ({ profile, isVerified }: UpdateProfileFormProp
         </Field>
       )}
 
-      <div className="flex flex-col gap-3">
-        {!isVerified ? (
-          <LockNotice>
-            Câmpurile sunt blocate până confirmi emailul. Datele deja salvate rămân vizibile.
-          </LockNotice>
-        ) : null}
-
-        <div className="flex justify-end">
-          <Button type="submit" disabled={!canSave}>
-            {isSubmitting ? "Se salvează…" : "Salvează modificările"}
-          </Button>
-        </div>
+      <div className="flex justify-end">
+        <Button type="submit" disabled={!canSave}>
+          {isSubmitting ? "Saving…" : "Save changes"}
+        </Button>
       </div>
     </form>
   )

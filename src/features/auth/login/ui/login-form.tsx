@@ -27,7 +27,7 @@ export const LoginForm = () => {
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="nume@exemplu.com"
+            placeholder="name@example.com"
             aria-invalid={!!errors.email}
           />
           <FieldError errors={[errors.email]} />
@@ -35,12 +35,12 @@ export const LoginForm = () => {
 
         <Field data-invalid={!!errors.password}>
           <div className="flex items-center">
-            <FieldLabel htmlFor="password">Parolă</FieldLabel>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
             <Link
               href={getRoutePath(APP_ROUTES.FORGOT_PASSWORD)}
               className="ml-auto inline-block text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
             >
-              Ai uitat parola?
+              Forgot your password?
             </Link>
           </div>
           <Input
@@ -61,18 +61,18 @@ export const LoginForm = () => {
 
         <Field>
           <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Se autentifică…" : "Autentificare"}
+            {isSubmitting ? "Signing in…" : "Sign in"}
           </Button>
         </Field>
 
         <Field>
           <FieldDescription className="text-center">
-            Nu ai cont?{" "}
+            Don't have an account?{" "}
             <Link
               href={getRoutePath(APP_ROUTES.REGISTER)}
               className="font-medium text-primary hover:underline"
             >
-              Înregistrează-te
+              Create an account
             </Link>
           </FieldDescription>
         </Field>

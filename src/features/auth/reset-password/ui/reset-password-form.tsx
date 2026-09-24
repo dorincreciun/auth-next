@@ -59,7 +59,7 @@ export const ResetPasswordForm = () => {
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="nume@exemplu.com"
+            placeholder="name@example.com"
             readOnly
             aria-invalid={!!errors.email}
             className="text-muted-foreground read-only:bg-white/[0.03] read-only:focus-visible:border-white/10 read-only:focus-visible:ring-0"
@@ -69,7 +69,7 @@ export const ResetPasswordForm = () => {
 
         <Field data-invalid={!!errors.token}>
           <div className="flex items-center justify-between gap-3">
-            <FieldLabel htmlFor="token">Cod de verificare</FieldLabel>
+            <FieldLabel htmlFor="token">Reset code</FieldLabel>
             {formatted != null && (
               <span
                 className={
@@ -79,7 +79,7 @@ export const ResetPasswordForm = () => {
                 }
                 aria-live="polite"
               >
-                {isExpired ? "Expirat" : formatted}
+                {isExpired ? "Expired" : formatted}
               </span>
             )}
           </div>
@@ -128,13 +128,13 @@ export const ResetPasswordForm = () => {
             <FieldError errors={[errors.token]} />
           ) : (
             <FieldDescription>
-              Introdu codul de 6 cifre primit pe email.
+              Enter the 6-digit code from the email.
             </FieldDescription>
           )}
         </Field>
 
         <Field data-invalid={!!errors.newPassword}>
-          <FieldLabel htmlFor="newPassword">Parolă nouă</FieldLabel>
+          <FieldLabel htmlFor="newPassword">New password</FieldLabel>
           <Input
             {...register("newPassword")}
             id="newPassword"
@@ -147,7 +147,7 @@ export const ResetPasswordForm = () => {
             <FieldError errors={[errors.newPassword]} />
           ) : (
             <FieldDescription>
-              Minim 8 caractere, litere mari/mici, cifră și caracter special.
+              At least 8 characters, upper and lower case, a digit, and a special character.
             </FieldDescription>
           )}
         </Field>
@@ -165,7 +165,7 @@ export const ResetPasswordForm = () => {
             className="w-full"
             disabled={isSubmitting || isExpired}
           >
-            {isSubmitting ? "Se resetează…" : "Resetează parola"}
+            {isSubmitting ? "Resetting…" : "Reset password"}
           </Button>
         </Field>
 
@@ -175,7 +175,7 @@ export const ResetPasswordForm = () => {
               href={getRoutePath(APP_ROUTES.LOGIN)}
               className="font-medium text-primary hover:underline"
             >
-              Înapoi la autentificare
+              Back to sign in
             </Link>
           </FieldDescription>
         </Field>
