@@ -12,7 +12,7 @@ export const TwoFactorSection = () => {
           <div className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 px-4 py-3.5">
             <label
               htmlFor="two-factor"
-              className="text-muted-foreground text-sm font-medium"
+              className="text-muted-foreground min-w-0 flex-1 text-sm font-medium"
               aria-disabled
             >
               Two-factor authentication

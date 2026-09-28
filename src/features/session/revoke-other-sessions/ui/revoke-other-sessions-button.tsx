@@ -35,7 +35,7 @@ export const RevokeOtherSessionsButton = ({
           type="button"
           variant="outline"
           size="sm"
-          className="shrink-0"
+          className="w-full shrink-0 sm:w-auto"
           disabled={isPending || !hasOtherSessions}
         >
           <ShieldOff data-icon="inline-start" />

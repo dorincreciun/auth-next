@@ -36,13 +36,13 @@ export default async function ProfileLayout({ children }: ProfileLayoutProps) {
         <div className="absolute right-0 bottom-0 h-64 w-64 rounded-full bg-[#d31e5a]/10 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto flex min-h-0 w-full max-w-[1920px] flex-1 gap-4 overflow-hidden p-4">
+      <div className="relative mx-auto flex min-h-0 w-full max-w-[1920px] flex-1 flex-col gap-3 overflow-hidden p-3 md:flex-row md:gap-4 md:p-4">
         <ProfileSidebar user={user} />
-        <Card className="flex min-h-0 w-full flex-1 flex-col gap-0 overflow-hidden py-0">
-          <CardHeader className="shrink-0 border-b border-white/10 py-4">
+        <Card className="flex min-h-0 w-full min-w-0 flex-1 flex-col gap-0 overflow-hidden py-0 max-md:[--card-spacing:--spacing(4)]">
+          <CardHeader className="shrink-0 border-b border-white/10 py-3 md:py-4">
             <Breadcrumb />
           </CardHeader>
-          <CardContent className="min-h-0 flex-1 overflow-y-auto py-6">{children}</CardContent>
+          <CardContent className="min-h-0 flex-1 overflow-y-auto py-4 md:py-6">{children}</CardContent>
           <CardFooter className="mt-auto shrink-0 border-0 bg-transparent p-0">
             <Footer />
           </CardFooter>

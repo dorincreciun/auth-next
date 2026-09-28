@@ -2,6 +2,7 @@
 
 import {LogOut} from "lucide-react";
 
+import {cn} from "@shared/lib/utils";
 import {Button} from "@shared/ui/button";
 import {
   Dialog,
@@ -16,7 +17,11 @@ import {
 
 import {useLogout} from "../model/use-logout";
 
-export const LogoutButton = () => {
+type LogoutButtonProps = {
+  className?: string;
+};
+
+export const LogoutButton = ({className}: LogoutButtonProps) => {
   const {isPending, logout} = useLogout();
 
   return (
@@ -25,7 +30,7 @@ export const LogoutButton = () => {
         <Button
           type="button"
           variant="outline"
-          className="h-9 w-full justify-center gap-2"
+          className={cn("h-9 w-full justify-center gap-2", className)}
           disabled={isPending}
         >
           <LogOut data-icon="inline-start" />

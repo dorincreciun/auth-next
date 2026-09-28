@@ -11,7 +11,7 @@ export const ProfileDevicesPage = async () => {
   const otherSessionsCount = sessions?.filter((session) => !session.isCurrent).length ?? 0
 
   return (
-    <div className="[&>section:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-child)]:border-b [&>section:not(:last-child)]:pb-10">
+    <div className="[&>section:not(:last-child)]:border-border/50 flex flex-col gap-8 [&>section:not(:last-child)]:border-b [&>section:not(:last-child)]:pb-8 md:gap-10 md:[&>section:not(:last-child)]:pb-10">
       <Section>
         <SectionTitle>Active sessions</SectionTitle>
         <SectionDescription>Devices recently signed in to your account.</SectionDescription>
@@ -47,7 +47,7 @@ export const ProfileDevicesPage = async () => {
         </SectionDescription>
         <SectionContent>
           <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 px-4 py-3.5">
+            <div className="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-muted-foreground text-sm">
                 {otherSessionsCount === 0
                   ? "There are no other connected devices"
@@ -57,7 +57,7 @@ export const ProfileDevicesPage = async () => {
             </div>
 
             <Notice>
-              The current session stays active. To close it, use the sign-out button in the sidebar.
+              The current session stays active. To close it, use Sign out.
             </Notice>
           </div>
         </SectionContent>
@@ -68,7 +68,7 @@ export const ProfileDevicesPage = async () => {
         <SectionDescription>Where your sessions have been active.</SectionDescription>
         <SectionContent>
           <div className="flex flex-col gap-3">
-            <Leaflet className="h-80 overflow-hidden border border-white/10" />
+            <Leaflet className="h-56 overflow-hidden border border-white/10 sm:h-80" />
 
             <Notice>
               The map has no markers: the API exposes each session's IP address, but not geographic

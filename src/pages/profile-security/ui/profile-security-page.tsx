@@ -15,7 +15,7 @@ export const ProfileSecurityPage = async () => {
   }
 
   return (
-    <div className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-10">
+    <div className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-8 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-8 md:gap-10 md:[&>section:not(:last-of-type)]:pb-10">
       <EmailSection email={user.email} />
 
       <PasswordSection email={user.email} />

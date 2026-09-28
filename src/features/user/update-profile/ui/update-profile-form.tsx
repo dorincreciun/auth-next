@@ -30,7 +30,7 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
     <form
       onSubmit={handleFormSubmit}
       noValidate
-      className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-10 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-10"
+      className="[&>section:not(:last-of-type)]:border-border/50 flex flex-col gap-8 [&>section:not(:last-of-type)]:border-b [&>section:not(:last-of-type)]:pb-8 md:gap-10 md:[&>section:not(:last-of-type)]:pb-10"
     >
       <Section>
         <SectionTitle>Personal information</SectionTitle>
@@ -54,8 +54,8 @@ export const UpdateProfileForm = ({ profile }: UpdateProfileFormProps) => {
         </Field>
       )}
 
-      <div className="flex justify-end">
-        <Button type="submit" disabled={!canSave}>
+      <div className="flex justify-stretch sm:justify-end">
+        <Button type="submit" className="w-full sm:w-auto" disabled={!canSave}>
           {isSubmitting ? "Saving…" : "Save changes"}
         </Button>
       </div>

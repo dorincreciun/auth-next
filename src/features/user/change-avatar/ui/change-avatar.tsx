@@ -33,7 +33,7 @@ export const ChangeAvatar = ({ avatarUrl }: ChangeAvatarProps) => {
   } = useChangeAvatar()
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5">
       <div className="shrink-0 rounded-full border border-white/10 bg-white/5 p-1 shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
         <Avatar size="2xl">
           {avatarUrl ? <AvatarImage src={avatarUrl} alt="Avatar" /> : null}

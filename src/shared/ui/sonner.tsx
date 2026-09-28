@@ -28,6 +28,7 @@ const toasterVars = {
   "--warning-bg": "color-mix(in oklab, var(--accent) 70%, #0a0506)",
   "--warning-border": "color-mix(in oklab, var(--accent-foreground) 40%, transparent)",
   "--warning-text": "var(--foreground)",
+  "--width": "min(356px, calc(100vw - 2rem))",
 } as CSSProperties
 
 const Toaster = ({ ...props }: ToasterProps) => {

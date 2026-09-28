@@ -58,7 +58,7 @@ export const AvatarCropDialog = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="relative h-[320px] w-full overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-[inset_0_0_40px_rgba(0,0,0,0.35)] sm:h-[360px]">
+        <div className="relative h-[min(42svh,320px)] w-full overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-[inset_0_0_40px_rgba(0,0,0,0.35)] sm:h-[360px]">
           {!!previewUrl && (
             <Cropper
               image={previewUrl}

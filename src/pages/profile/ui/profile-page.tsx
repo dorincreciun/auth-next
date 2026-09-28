@@ -17,7 +17,7 @@ export const ProfilePage = async () => {
   const profile = user.profile
 
   return (
-    <div className="[&>*:not(:last-child)]:border-border/50 flex flex-col gap-10 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:pb-10">
+    <div className="[&>*:not(:last-child)]:border-border/50 flex flex-col gap-8 [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:pb-8 md:gap-10 md:[&>*:not(:last-child)]:pb-10">
       <ChangeAvatar avatarUrl={profile?.avatarUrl} />
 
       <UpdateProfileForm profile={profile} />

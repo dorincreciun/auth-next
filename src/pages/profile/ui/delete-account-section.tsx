@@ -12,7 +12,7 @@ export const DeleteAccountSection = () => {
         <div className="flex flex-col gap-3">
           <Field
             orientation="horizontal"
-            className="border-destructive/20 bg-destructive/5 flex items-center justify-between gap-4 rounded-lg border px-4 py-3.5"
+            className="border-destructive/20 bg-destructive/5 gap-4 rounded-lg border px-4 py-3.5 max-sm:flex-col max-sm:items-stretch"
           >
             <FieldContent>
               <FieldLabel>Delete account</FieldLabel>
@@ -21,7 +21,13 @@ export const DeleteAccountSection = () => {
               </FieldDescription>
             </FieldContent>
 
-            <Button type="button" variant="destructive" size="sm" className="shrink-0" disabled>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              className="shrink-0 max-sm:w-full"
+              disabled
+            >
               Delete account
             </Button>
           </Field>
