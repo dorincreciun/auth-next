@@ -2,6 +2,8 @@ import { type ReactNode } from "react"
 
 import "@app/styles/index.css"
 
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { type Metadata } from "next"
 
 import { inter } from "@app/fonts"
@@ -25,6 +27,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${inter.className} antialiased`}>
         <div className="flex min-h-svh flex-col">{children}</div>
         <Toaster />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
